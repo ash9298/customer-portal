@@ -1,0 +1,36 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Downloads from "./pages/Downloads";
+import MyCases from "./pages/MyCases";
+import MyLicenses from "./pages/MyLicenses";
+import Addons from "./pages/Addons";
+import Reports from "./pages/Reports";
+import DashboardLayout from "./components/layouts/DashboardLayout";
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Navigate to="license-management" replace />} />
+          <Route path="downloads" element={<Downloads />} />
+          <Route path="customercase" element={<MyCases />} />
+          <Route path="license-management" element={<MyLicenses />} />
+          <Route path="addons" element={<Addons />} />
+          <Route path="reports" element={<Reports />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
