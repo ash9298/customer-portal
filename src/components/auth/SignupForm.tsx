@@ -1,21 +1,59 @@
-import React from "react";
-import { Box, TextField, Divider } from "@mui/material";
+import React, { useState } from "react";
+import axios from "axios";
+import { Box, TextField, Divider, CircularProgress } from "@mui/material";
 import AuthLayout from "./AuthLayout";
 import { useForm, Controller } from "react-hook-form";
 import { PrimaryButton } from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 
-interface SignupFormValues {
+type SignupFormValues = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-}
+};
+
+type Payload = {
+  LegacyId: string;
+  Active: boolean;
+  IsAdmin: false;
+  UserType: string;
+  LastActive: string;
+  TwoFactorAuthEnabled: false;
+  CustomerAccountId: string;
+  ContactId: string;
+};
 
 const SignupForm: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const { control, handleSubmit } = useForm<SignupFormValues>();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: SignupFormValues) => {
-    console.log("Signup:", data);
+  const onSubmit = async (data: SignupFormValues) => {
+    setLoading(true);
+    try {
+      const payload: Payload = {
+        ...data,
+        LegacyId: `user-${data.email}`,
+        Active: true,
+        IsAdmin: false,
+        UserType: "Customer",
+        LastActive: new Date().toISOString(),
+        TwoFactorAuthEnabled: false,
+        CustomerAccountId: "CUST-004",
+        ContactId: "CONT-004",
+      };
+      const response = await axios.post(
+        "http://localhost:3000/signup",
+        payload
+      );
+      console.log("Signup successful:", response.data);
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -72,7 +110,7 @@ const SignupForm: React.FC = () => {
         />
 
         <PrimaryButton fullWidth type="submit" sx={{ mt: 3 }}>
-          Sign up
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Sign Up"}
         </PrimaryButton>
         <Divider sx={{ my: 2 }}>or</Divider>
         <PrimaryButton fullWidth type="submit">

@@ -5,12 +5,15 @@ import {
   InputAdornment,
   TextField,
   Divider,
+  CircularProgress,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import AuthLayout from "./AuthLayout";
 import { useForm, Controller } from "react-hook-form";
 import { PrimaryButton } from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 interface LoginFormValues {
   email: string;
@@ -19,17 +22,25 @@ interface LoginFormValues {
 
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { control, handleSubmit } = useForm<LoginFormValues>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: LoginFormValues) => {
-    console.log("Login:", data);
-    const isAuthenticated = data.email === "admin" && data.password === "admin";
-
-    if (isAuthenticated) {
+    setLoading(true);
+    try {
+      const response = await axios.post("http://localhost:3000/login", data);
+      console.log("Login successful:", response.data);
+      Cookies.set("accessToken", response.data.accessToken, {
+        secure: true,
+        sameSite: "strict",
+      });
       navigate("/dashboard");
-    } else {
-      alert("Invalid email or password");
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,7 +83,7 @@ const LoginForm: React.FC = () => {
           )}
         />
         <PrimaryButton fullWidth type="submit" sx={{ mt: 3 }}>
-          Sign in
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Log In"}
         </PrimaryButton>
 
         <Divider sx={{ my: 2 }}>or</Divider>

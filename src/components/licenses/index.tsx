@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { checkCustomer, getAllLicenses } from "./licenseAPI";
+import { checkCustomer, getAllLicenses } from "../../api/licenseAPI";
 import LicenseTable from "./LicenseTable";
 
 type LicenseInfo = {
@@ -37,12 +37,14 @@ const LicenseTypeEnums = {
 const Licenses: React.FC = () => {
   const [licenses, setLicenses] = useState<LicenseProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchLicenses = async () => {
       const validCustomer = await checkCustomer();
       if (validCustomer.results.length === 0) {
         setLoading(false);
+        setError(true);
         return;
       }
 
@@ -97,9 +99,13 @@ const Licenses: React.FC = () => {
     fetchLicenses();
   }, []);
 
-  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error}</div>;
 
-  return <LicenseTable licenses={licenses} isLoading={loading} />;
+  return error ? (
+    <div>Error: Not able to fetch licenses</div>
+  ) : (
+    <LicenseTable licenses={licenses} isLoading={loading} />
+  );
 };
 
 export default Licenses;

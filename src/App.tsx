@@ -4,6 +4,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Downloads from "./pages/Downloads";
@@ -18,9 +20,30 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardLayout />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<Navigate to="license-management" replace />} />
           <Route path="downloads" element={<Downloads />} />
           <Route path="customercase" element={<MyCases />} />
@@ -28,6 +51,7 @@ function App() {
           <Route path="addons" element={<Addons />} />
           <Route path="reports" element={<Reports />} />
         </Route>
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
