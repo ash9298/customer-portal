@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import { Avatar, Box, Typography, useTheme } from "@mui/material";
 import { Logout } from "@mui/icons-material";
+import { type RootState } from "../../store";
 
 const Footer = () => {
   const theme = useTheme();
+  const user = useSelector((state: RootState) => state.auth.user);
   return (
     <Box
       sx={{
@@ -22,10 +25,14 @@ const Footer = () => {
         <Avatar sx={{ backgroundColor: theme.palette.primary.main }}>JD</Avatar>
         <Box sx={{ marginLeft: theme.spacing(1), flex: 1 }}>
           <Typography variant="body1" fontWeight="bold">
-            John Doe
+            {user && (
+              <>
+                {user.firstName} {user.lastName}
+              </>
+            )}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            john.doe@example.com
+            {user && user.email}
           </Typography>
         </Box>
       </Box>

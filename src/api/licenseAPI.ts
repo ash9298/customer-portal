@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "./index";
 
 export const checkCustomer = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/check_customer");
+    const response = await api.get("/check_customer");
     return response.data;
   } catch (error) {
     console.error("Error fetching check customer:", error);
@@ -12,7 +12,7 @@ export const checkCustomer = async () => {
 
 export const getAllLicenses = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/all_licenses");
+    const response = await api.get("/all_licenses");
     return response.data;
   } catch (error) {
     console.error("Error fetching licenses:", error);
@@ -22,7 +22,7 @@ export const getAllLicenses = async () => {
 
 export const getMachineInfo = async (id: number) => {
   try {
-    const response = await axios.get("http://localhost:3000/machine_info", {
+    const response = await api.get("/machine_info", {
       params: {
         device_id: id,
       },
@@ -36,7 +36,7 @@ export const getMachineInfo = async (id: number) => {
 
 export const getProductInfo = async (id: number) => {
   try {
-    const response = await axios.get("http://localhost:3000/product_info", {
+    const response = await api.get("/product_info", {
       params: {
         product_id: id,
       },

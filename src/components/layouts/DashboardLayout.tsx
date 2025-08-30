@@ -7,7 +7,6 @@ const DashboardLayout = () => {
     <Box sx={{ display: "flex" }}>
       <Sidebar />
 
-      {/* Main Content */}
       <Box
         component="main"
         sx={{

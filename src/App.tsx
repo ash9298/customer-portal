@@ -4,8 +4,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import PrivateRoute from "./routes/PrivateRoute";
+import { Provider } from "react-redux";
+
+import store from "./store";
 import PublicRoute from "./routes/PublicRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Downloads from "./pages/Downloads";
@@ -17,43 +20,48 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route
-          path="login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<Navigate to="license-management" replace />} />
-          <Route path="downloads" element={<Downloads />} />
-          <Route path="customercase" element={<MyCases />} />
-          <Route path="license-management" element={<MyLicenses />} />
-          <Route path="addons" element={<Addons />} />
-          <Route path="reports" element={<Reports />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route
+            path="login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route
+              index
+              element={<Navigate to="license-management" replace />}
+            />
+            <Route path="downloads" element={<Downloads />} />
+            <Route path="customercase" element={<MyCases />} />
+            <Route path="license-management" element={<MyLicenses />} />
+            <Route path="addons" element={<Addons />} />
+            <Route path="reports" element={<Reports />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 

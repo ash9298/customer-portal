@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import {
   Box,
   IconButton,
@@ -9,12 +12,9 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import AuthLayout from "./AuthLayout";
-import { useForm, Controller } from "react-hook-form";
 import { PrimaryButton } from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
-
+import { login } from "../../store/authSlice";
+import { type AppDispatch } from "../../store";
 interface LoginFormValues {
   email: string;
   password: string;
@@ -26,17 +26,15 @@ const LoginForm: React.FC = () => {
 
   const { control, handleSubmit } = useForm<LoginFormValues>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/login", data);
-      console.log("Login successful:", response.data);
-      Cookies.set("accessToken", response.data.accessToken, {
-        secure: true,
-        sameSite: "strict",
-      });
-      navigate("/dashboard");
+      const result = await dispatch(login(data));
+      if (login.fulfilled.match(result)) {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login error:", error);
     } finally {
