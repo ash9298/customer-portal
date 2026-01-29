@@ -12,57 +12,32 @@ import {
   Stack,
   Divider,
 } from "@mui/material";
-import LicensesTab from "./LicenseTab";
-const tabs = ["Licenses", "User activity", "Test results", "Leapwork usage"];
-const EmptyState = ({ title }) => (
-  <Box mt={6} textAlign="center" color="text.secondary">
-    <Typography>{title} data will appear here</Typography>
-  </Box>
-);
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
+const tabMap = ["licenses", "user-activity", "test-results", "leapwork-usage"];
 const Report = () => {
-  const [tab, setTab] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentTab = tabMap.findIndex((t) => location.pathname.endsWith(t));
+
+  const tabIndex = currentTab === -1 ? 0 : currentTab;
+
+  const handleChange = (_, newValue) => {
+    navigate(`/dashboard/reports/${tabMap[newValue]}`);
+  };
 
   return (
-    <Box sx={{ p: 0 }}>
-      {/* Header */}
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={2}
-      >
-        <Typography variant="h5" fontWeight={600}>
-          Reports
-        </Typography>
-
-        <Select size="small" value="7">
-          <MenuItem value="7">Last 7 days</MenuItem>
-          <MenuItem value="30">Last 30 days</MenuItem>
-          <MenuItem value="90">Last 90 days</MenuItem>
-        </Select>
-      </Stack>
-
-      {/* Tabs */}
-      <Tabs
-        value={tab}
-        onChange={(_, v) => setTab(v)}
-        sx={{
-          mb: 3,
-          "& .MuiTab-root": { textTransform: "none" },
-        }}
-      >
-        {tabs.map((label) => (
-          <Tab key={label} label={label} />
-        ))}
+    <Box p={3}>
+      <Tabs value={tabIndex} onChange={handleChange}>
+        <Tab label="Licenses" />
+        <Tab label="User activity" />
+        <Tab label="Test results" />
+        <Tab label="Leapwork usage" />
       </Tabs>
 
-      <Divider />
-
-      {/* Tab Panels */}
-      {tab === 0 && <LicensesTab />}
-      {tab === 1 && <EmptyState title="User activity" />}
-      {tab === 2 && <EmptyState title="Test results" />}
-      {tab === 3 && <EmptyState title="Leapwork usage" />}
+      {/* THIS IS CRITICAL */}
+      <Outlet />
     </Box>
   );
 };
