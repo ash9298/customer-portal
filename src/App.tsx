@@ -7,8 +7,8 @@ import {
 import { Provider } from "react-redux";
 
 import store from "./store";
-import PublicRoute from "./routes/PublicRoute";
-import PrivateRoute from "./routes/PrivateRoute";
+// import PublicRoute from "./routes/PublicRoute";
+// import PrivateRoute from "./routes/PrivateRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Downloads from "./pages/Downloads";
@@ -27,25 +27,25 @@ function App() {
           <Route
             path="login"
             element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
+              // <PublicRoute>
+              <Login />
+              // </PublicRoute>
             }
           />
           <Route
             path="signup"
             element={
-              <PublicRoute>
-                <Signup />
-              </PublicRoute>
+              // <PublicRoute>
+              <Signup />
+              // </PublicRoute>
             }
           />
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute>
-                <DashboardLayout />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <DashboardLayout />
+              // </PrivateRoute>
             }
           >
             <Route
