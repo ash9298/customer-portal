@@ -28,15 +28,54 @@ const Report = () => {
   };
 
   return (
-    <Box p={3}>
+    <Box p={0}>
       <Tabs value={tabIndex} onChange={handleChange}>
-        <Tab label="Licenses" />
-        <Tab label="User activity" />
-        <Tab label="Test results" />
-        <Tab label="Leapwork usage" />
+        <Tab
+          label="Licenses"
+          sx={{
+            "&.Mui-selected": {
+              fontWeight: 600,
+              color: "#333",
+              backgroundColor: "#c7cece",
+              zIndex: 1,
+            },
+          }}
+        />
+        <Tab
+          label="User activity"
+          sx={{
+            "&.Mui-selected": {
+              fontWeight: 600,
+              color: "#333",
+              backgroundColor: "#c7cece",
+              zIndex: 1,
+            },
+          }}
+        />
+        <Tab
+          label="Test results"
+          sx={{
+            "&.Mui-selected": {
+              fontWeight: 600,
+              color: "#333",
+              backgroundColor: "#c7cece",
+              zIndex: 1,
+            },
+          }}
+        />
+        <Tab
+          label="Leapwork usage"
+          sx={{
+            "&.Mui-selected": {
+              fontWeight: 600,
+              color: "#333",
+              backgroundColor: "#c7cece",
+              zIndex: 1,
+            },
+          }}
+        />
       </Tabs>
-
-      {/* THIS IS CRITICAL */}
+      <Divider />
       <Outlet />
     </Box>
   );

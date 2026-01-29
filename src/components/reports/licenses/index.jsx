@@ -1,6 +1,6 @@
 import {
   Box,
-  Tabs,
+  Paper,
   Tab,
   Typography,
   Grid,
@@ -16,27 +16,32 @@ const LicensesTab = () => {
   return (
     <Box mt={3}>
       {/* Summary Cards */}
-      <Grid container spacing={2}>
-        {[
-          { label: "Licenses", value: 11 },
-          { label: "Studios", value: 44 },
-          { label: "Agents", value: 55 },
-          { label: "Controllers", value: 11 },
-        ].map((item) => (
-          <Grid item xs={12} sm={6} md={3} key={item.label}>
-            <Card variant="outlined">
-              <CardContent>
+      <Card variant="outlined" sx={{ p: 2 }}>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+          }}
+        >
+          {[
+            { label: "Licenses", value: 11 },
+            { label: "Studios", value: 44 },
+            { label: "Agents", value: 55 },
+            { label: "Controllers", value: 11 },
+          ].map((item) => (
+            <Grid item key={item.label} sx={{ minWidth: "calc(100%/4)" }}>
+              <Box>
                 <Typography variant="body2" color="text.secondary">
                   {item.label}
                 </Typography>
                 <Typography variant="h5" fontWeight={600}>
                   {item.value}
                 </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Card>
 
       {/* License overview */}
       <Card variant="outlined" sx={{ mt: 3 }}>
@@ -44,14 +49,6 @@ const LicensesTab = () => {
           <Typography fontWeight={600} mb={2}>
             License overview
           </Typography>
-
-          <Tabs value={1}>
-            <Tab label="Licenses" />
-            <Tab label="Studios in use" />
-            <Tab label="Studios use evol." />
-            <Tab label="Agents in use" />
-            <Tab label="Agents use evol." />
-          </Tabs>
 
           <Box
             sx={{

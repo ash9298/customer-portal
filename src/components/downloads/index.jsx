@@ -26,7 +26,7 @@ const Download = () => {
             Stable releases
           </Typography>
 
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ borderRadius: 0 }}>
             <CardContent>
               <Stack spacing={1}>
                 <Chip
@@ -93,7 +93,10 @@ const Download = () => {
             }}
           >
             {/* RSAT Migration Tool */}
-            <Card variant="outlined" sx={{ maxWidth: "450px" }}>
+            <Card
+              variant="outlined"
+              sx={{ maxWidth: "450px", borderRadius: 0 }}
+            >
               <CardContent>
                 <Stack spacing={1}>
                   <Typography variant="h6" fontWeight={600}>
@@ -149,6 +152,7 @@ const Download = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                borderRadius: 0,
               }}
             >
               <CardContent>
