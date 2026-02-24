@@ -1,23 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { InteractionStatus } from "@azure/msal-browser";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { Box, CircularProgress } from "@mui/material";
 import { Navigate, useLocation } from "react-router-dom";
-import { checkAuth } from "../store/authSlice";
-import { type AppDispatch, type RootState } from "../store";
-import { CircularProgress, Box } from "@mui/material";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
-  const { user, isAuthenticated, loading } = useSelector(
-    (state: RootState) => state.auth
-  );
-  useEffect(() => {
-    if (!user) {
-      dispatch(checkAuth());
-    }
-  }, [dispatch, user]);
-
-  if (loading) {
+  const { inProgress } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  if (inProgress !== InteractionStatus.None) {
     return (
       <Box
         sx={{
@@ -31,7 +21,6 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
       </Box>
     );
   }
-
   return isAuthenticated ? (
     children
   ) : (

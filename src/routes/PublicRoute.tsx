@@ -1,11 +1,25 @@
-import { useSelector } from "react-redux";
+import { Box, CircularProgress } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import { type RootState } from "../store";
+import { InteractionStatus } from "@azure/msal-browser";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
+  const { inProgress } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  if (inProgress !== InteractionStatus.None) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
 };
 

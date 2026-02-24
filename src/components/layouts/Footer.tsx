@@ -25,11 +25,13 @@ import {
   ExpandLess,
   KeyboardArrowDown,
 } from "@mui/icons-material";
+import { useMsal } from "@azure/msal-react";
 import { type RootState } from "../../store";
 
 const Footer = () => {
   const theme = useTheme();
   const user = useSelector((state: RootState) => state.auth.user);
+  const { instance } = useMsal();
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
 
@@ -42,9 +44,9 @@ const Footer = () => {
   };
 
   const handleLogout = () => {
-    // Add your logout logic here
-    console.log("Logging out...");
     setUserOpen(false);
+    instance.setActiveAccount(null);
+    instance.logoutRedirect();
   };
 
   const knowledgeResources = [
@@ -184,7 +186,7 @@ const Footer = () => {
           >
             {user
               ? `${user.firstName?.charAt(0)}${user.lastName?.charAt(
-                  0
+                  0,
                 )}`.toUpperCase()
               : "AG"}
           </Avatar>

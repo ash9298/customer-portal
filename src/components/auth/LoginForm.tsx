@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 // import { useDispatch } from "react-redux";
@@ -11,8 +11,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import AuthLayout from "./AuthLayout";
 import { PrimaryButton } from "../../ui/Button";
+import { isMsalConfigured, loginRequest } from "../../auth/msalConfig";
 // import { login } from "../../store/authSlice";
 // import { type AppDispatch } from "../../store";
 interface LoginFormValues {
@@ -23,9 +25,12 @@ interface LoginFormValues {
 const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ssoLoading, setSsoLoading] = useState(false);
 
   const { control, handleSubmit } = useForm<LoginFormValues>();
   const navigate = useNavigate();
+  const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
   // const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = async (data: LoginFormValues) => {
@@ -40,6 +45,26 @@ const LoginForm: React.FC = () => {
       console.error("Login error:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleSsoLogin = async () => {
+    if (!isMsalConfigured) {
+      console.warn("SSO is not configured. Missing VITE_AZURE_AD_CLIENT_ID.");
+      return;
+    }
+    setSsoLoading(true);
+    try {
+      await instance.loginRedirect(loginRequest);
+    } catch (error) {
+      console.error("SSO login error:", error);
+      setSsoLoading(false);
     }
   };
 
@@ -86,7 +111,17 @@ const LoginForm: React.FC = () => {
         </PrimaryButton>
 
         <Divider sx={{ my: 2 }}>or</Divider>
-        <PrimaryButton fullWidth>Use SSO</PrimaryButton>
+        <PrimaryButton
+          fullWidth
+          onClick={handleSsoLogin}
+          disabled={ssoLoading || !isMsalConfigured}
+        >
+          {ssoLoading ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            "Use SSO"
+          )}
+        </PrimaryButton>
       </Box>
     </AuthLayout>
   );
