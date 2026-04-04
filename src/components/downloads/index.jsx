@@ -1,5 +1,4 @@
 import {
-  Container,
   Grid,
   Card,
   CardContent,
@@ -11,10 +10,11 @@ import {
 } from "@mui/material";
 import { PrimaryButton, SecondaryButton } from "../../ui/Button";
 import AlertBox from "../../ui/Alert";
+import { darkTokens } from "../../ui/theme";
 const Download = () => {
   return (
     <>
-      <Typography sx={{ fontSize: "14px", mb: 2 }}>
+      <Typography sx={{ fontSize: "14px", mb: 2, color: darkTokens.text.secondary }}>
         Keep up to date and discover exciting new features and improvements by
         downloading the latest version of Leapwork's software.
       </Typography>
@@ -22,28 +22,44 @@ const Download = () => {
       <Grid container spacing={3} sx={{ display: "flex", flexWrap: "nowrap" }}>
         {/* LEFT COLUMN – Stable Releases */}
         <Grid item xs={12} md={6} sx={{ maxWidth: "450px" }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ color: darkTokens.text.primary, fontWeight: 550 }}
+          >
             Stable releases
           </Typography>
 
-          <Card variant="outlined" sx={{ borderRadius: 0 }}>
+          <Card
+            variant="outlined"
+            sx={{
+              borderRadius: 1,
+              borderColor: darkTokens.border.default,
+              backgroundColor: darkTokens.background.surface,
+              color: darkTokens.text.primary,
+            }}
+          >
             <CardContent>
               <Stack spacing={1}>
                 <Chip
                   label="Service Release"
                   size="small"
-                  sx={{ width: "fit-content", bgcolor: "#FFF3CD" }}
+                  sx={{
+                    width: "fit-content",
+                    bgcolor: darkTokens.status.warningBg,
+                    color: darkTokens.status.warning,
+                  }}
                 />
 
-                <Typography variant="h6" fontWeight={600}>
+                <Typography variant="h6" fontWeight={550}>
                   V.2025.4.151
                 </Typography>
 
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                   Released on 15-01-2026
                 </Typography>
 
-                <Typography variant="body2">
+                <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
                   This service release improves stability across Studio, Run
                   Lists, and Leapwork Cloud. It refines multi‑window behavior
                   and Start Web Browser handling, stabilizes subflow editing,
@@ -59,6 +75,7 @@ const Download = () => {
                     px: 0,
                     alignSelf: "flex-start",
                     textDecoration: "underline",
+                    color: darkTokens.text.secondary,
                   }}
                 >
                   Read more
@@ -81,7 +98,11 @@ const Download = () => {
 
         {/* RIGHT COLUMN – Leapwork Studio Utilities */}
         <Grid item xs={12} md={6}>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ color: darkTokens.text.primary, fontWeight: 550 }}
+          >
             Leapwork Studio Utilities
           </Typography>
 
@@ -95,19 +116,25 @@ const Download = () => {
             {/* RSAT Migration Tool */}
             <Card
               variant="outlined"
-              sx={{ maxWidth: "450px", borderRadius: 0 }}
+              sx={{
+                maxWidth: "450px",
+                borderRadius: 1,
+                borderColor: darkTokens.border.default,
+                backgroundColor: darkTokens.background.surface,
+                color: darkTokens.text.primary,
+              }}
             >
               <CardContent>
                 <Stack spacing={1}>
-                  <Typography variant="h6" fontWeight={600}>
+                  <Typography variant="h6" fontWeight={550}>
                     RSAT Migration Tool
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                     Released on 15-01-2026
                   </Typography>
 
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
                     Many customers and partners have heavily invested in
                     building automated test suites with Microsoft RSAT for D365
                     F&O. However, RSAT’s limitations, especially for
@@ -122,11 +149,12 @@ const Download = () => {
                   <Button
                     size="small"
                     sx={{
-                      px: 0,
-                      alignSelf: "flex-start",
-                      textDecoration: "underline",
-                    }}
-                  >
+                    px: 0,
+                    alignSelf: "flex-start",
+                    textDecoration: "underline",
+                    color: darkTokens.text.secondary,
+                  }}
+                >
                     Read more
                   </Button>
                 </Stack>
@@ -152,20 +180,23 @@ const Download = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                borderRadius: 0,
+                borderRadius: 1,
+                borderColor: darkTokens.border.default,
+                backgroundColor: darkTokens.background.surface,
+                color: darkTokens.text.primary,
               }}
             >
               <CardContent>
                 <Stack spacing={1}>
-                  <Typography variant="h6" fontWeight={600}>
+                  <Typography variant="h6" fontWeight={550}>
                     Diagnosis Report
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                     Released on 28-10-2025
                   </Typography>
 
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
                     Diagnosis Report is an automated PowerShell check that
                     verifies your machine’s prerequisites and health for running
                     Leapwork, standardizing diagnostics and removing manual
@@ -175,11 +206,12 @@ const Download = () => {
                   <Button
                     size="small"
                     sx={{
-                      px: 0,
-                      alignSelf: "flex-start",
-                      textDecoration: "underline",
-                    }}
-                  >
+                    px: 0,
+                    alignSelf: "flex-start",
+                    textDecoration: "underline",
+                    color: darkTokens.text.secondary,
+                  }}
+                >
                     FAQ's
                   </Button>
                 </Stack>

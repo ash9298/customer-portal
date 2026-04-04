@@ -15,6 +15,7 @@ import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import AuthLayout from "./AuthLayout";
 import { PrimaryButton } from "../../ui/Button";
 import { isMsalConfigured, loginRequest } from "../../auth/msalConfig";
+import { darkTokens } from "../../ui/theme";
 // import { login } from "../../store/authSlice";
 // import { type AppDispatch } from "../../store";
 interface LoginFormValues {
@@ -32,6 +33,17 @@ const LoginForm: React.FC = () => {
   const { instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   // const dispatch = useDispatch<AppDispatch>();
+
+  const inputSx = {
+    "& .MuiInputLabel-root": { color: darkTokens.text.secondary },
+    "& .MuiOutlinedInput-root": {
+      color: darkTokens.text.primary,
+      backgroundColor: darkTokens.background.app,
+      "& fieldset": { borderColor: darkTokens.border.default },
+      "&:hover fieldset": { borderColor: darkTokens.text.secondary },
+      "&.Mui-focused fieldset": { borderColor: darkTokens.accent.primary },
+    },
+  };
 
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
@@ -79,7 +91,13 @@ const LoginForm: React.FC = () => {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField {...field} fullWidth label="Email" margin="normal" />
+            <TextField
+              {...field}
+              fullWidth
+              label="Email"
+              margin="normal"
+              sx={inputSx}
+            />
           )}
         />
 
@@ -94,10 +112,14 @@ const LoginForm: React.FC = () => {
               label="Password"
               type={showPassword ? "text" : "password"}
               margin="normal"
+              sx={inputSx}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      sx={{ color: darkTokens.text.secondary }}
+                    >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
@@ -110,7 +132,15 @@ const LoginForm: React.FC = () => {
           {loading ? <CircularProgress size={24} color="inherit" /> : "Log In"}
         </PrimaryButton>
 
-        <Divider sx={{ my: 2 }}>or</Divider>
+        <Divider
+          sx={{
+            my: 2,
+            borderColor: darkTokens.border.default,
+            color: darkTokens.text.secondary,
+          }}
+        >
+          or
+        </Divider>
         <PrimaryButton
           fullWidth
           onClick={handleSsoLogin}

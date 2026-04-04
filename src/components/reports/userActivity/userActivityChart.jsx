@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Plot from "react-plotly.js";
-import { Card, Box, useTheme } from "@mui/material";
+import { Card, Box } from "@mui/material";
+import { darkTokens } from "../../../ui/theme";
 
 const UserActivityChart = () => {
-  const theme = useTheme();
   const chartRef = useRef(null);
   const [chartHeight, setChartHeight] = useState(400);
   const [isReady, setIsReady] = useState(false);
@@ -84,7 +84,7 @@ const UserActivityChart = () => {
       type: "bar",
       name: "Active User",
       marker: {
-        color: "#2563eb", // Blue color for bars
+        color: darkTokens.accent.primary,
       },
       yaxis: "y",
       hovertemplate: "Date: %{x}<br>Active Users: %{y}<extra></extra>",
@@ -96,11 +96,11 @@ const UserActivityChart = () => {
       mode: "lines+markers",
       name: "Total User",
       line: {
-        color: "#dc2626", // Red color for line
+        color: darkTokens.status.danger,
         width: 2,
       },
       marker: {
-        color: "#dc2626",
+        color: darkTokens.status.danger,
         size: 4,
       },
       yaxis: "y",
@@ -112,7 +112,7 @@ const UserActivityChart = () => {
     title: {
       font: {
         size: 16,
-        color: "#374151",
+        color: darkTokens.text.primary,
       },
       x: 0, // Left align
     },
@@ -121,10 +121,14 @@ const UserActivityChart = () => {
       tickangle: -45,
       tickfont: {
         size: 11,
+        color: darkTokens.text.secondary,
       },
-      gridcolor: "#e5e7eb",
+      titlefont: {
+        color: darkTokens.text.secondary,
+      },
+      gridcolor: darkTokens.border.grid,
       showline: true,
-      linecolor: "#d1d5db",
+      linecolor: darkTokens.border.strong,
       mirror: true,
       side: "bottom",
       automargin: true, // Add automargin
@@ -132,12 +136,12 @@ const UserActivityChart = () => {
     yaxis: {
       title: "Number of Users",
       titlefont: {
-        color: "#374151",
+        color: darkTokens.text.secondary,
       },
       tickfont: {
-        color: "#374151",
+        color: darkTokens.text.secondary,
       },
-      gridcolor: "#e5e7eb",
+      gridcolor: darkTokens.border.grid,
       rangemode: "nonnegative",
       zeroline: false,
       side: "left",
@@ -149,9 +153,12 @@ const UserActivityChart = () => {
       y: -0.15, // Adjusted position
       xanchor: "center",
       x: 0.5,
-      bgcolor: "rgba(255,255,255,0.8)",
-      bordercolor: "#e5e7eb",
+      bgcolor: darkTokens.overlay.panel,
+      bordercolor: darkTokens.border.default,
       borderwidth: 1,
+      font: {
+        color: darkTokens.text.secondary,
+      },
     },
     margin: {
       l: 60, // Adjusted margins
@@ -160,14 +167,15 @@ const UserActivityChart = () => {
       b: 80,
       pad: 4,
     },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: darkTokens.background.surface,
+    plot_bgcolor: darkTokens.background.surface,
     hovermode: "x unified",
     hoverlabel: {
-      bgcolor: "#ffffff",
-      bordercolor: "#e5e7eb",
+      bgcolor: darkTokens.background.elevated,
+      bordercolor: darkTokens.border.strong,
       font: {
         size: 12,
+        color: darkTokens.text.primary,
       },
     },
     barmode: "group",
@@ -205,7 +213,13 @@ const UserActivityChart = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ mt: 3, borderRadius: 0, position: "relative" }}
+      sx={{
+        mt: 3,
+        borderRadius: "4px",
+        position: "relative",
+        backgroundColor: darkTokens.background.surface,
+        borderColor: darkTokens.border.default,
+      }}
     >
       <Box
         sx={{

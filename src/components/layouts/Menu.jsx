@@ -1,7 +1,6 @@
 import { useLocation, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-  colors,
   List,
   ListItem,
   ListItemButton,
@@ -9,6 +8,7 @@ import {
   Collapse,
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { darkTokens } from "../../ui/theme";
 
 const Menu = () => {
   const location = useLocation();
@@ -41,19 +41,34 @@ const Menu = () => {
 
   return (
     <nav>
-      <List>
+      <List sx={{ py: 0 }}>
         {MenuItems.map((item) => {
           if (item.children) {
             return (
               <div key={item.text}>
                 {/* Reports – TOGGLE ONLY */}
                 <ListItem disablePadding>
-                  <ListItemButton onClick={() => setOpenReports((p) => !p)}>
-                    <ListItemText primary={item.text} />
+                  <ListItemButton
+                    onClick={() => setOpenReports((p) => !p)}
+                    sx={{
+                      borderRadius: 1,
+                      color: darkTokens.text.primary,
+                      "&:hover": {
+                        backgroundColor: darkTokens.background.muted,
+                      },
+                    }}
+                  >
+                    <ListItemText
+                      primary={item.text}
+                      primaryTypographyProps={{
+                        fontSize: "13px",
+                        fontWeight: 550,
+                      }}
+                    />
                     {openReports ? (
-                      <ExpandLess sx={{ color: "#aaa" }} />
+                      <ExpandLess sx={{ color: darkTokens.text.secondary }} />
                     ) : (
-                      <ExpandMore sx={{ color: "#aaa" }} />
+                      <ExpandMore sx={{ color: darkTokens.text.secondary }} />
                     )}
                   </ListItemButton>
                 </ListItem>
@@ -68,13 +83,26 @@ const Menu = () => {
                           to={child.to}
                           sx={{
                             pl: 4,
+                            borderRadius: 1,
+                            color: darkTokens.text.secondary,
+                            "&:hover": {
+                              backgroundColor: darkTokens.background.muted,
+                              color: darkTokens.text.primary,
+                            },
                             "&.active": {
-                              backgroundColor: colors.grey[100],
-                              fontWeight: 600,
+                              backgroundColor: darkTokens.background.hover,
+                              color: darkTokens.text.primary,
+                              fontWeight: 550,
                             },
                           }}
                         >
-                          <ListItemText primary={child.text} />
+                          <ListItemText
+                            primary={child.text}
+                            primaryTypographyProps={{
+                              fontSize: "13px",
+                              fontWeight: 450,
+                            }}
+                          />
                         </ListItemButton>
                       </ListItem>
                     ))}
@@ -91,13 +119,24 @@ const Menu = () => {
                 component={NavLink}
                 to={item.to}
                 sx={{
+                  borderRadius: 1,
+                  color: darkTokens.text.primary,
+                  "&:hover": {
+                    backgroundColor: darkTokens.background.muted,
+                  },
                   "&.active": {
-                    backgroundColor: colors.grey[100],
-                    fontWeight: 600,
+                    backgroundColor: darkTokens.background.hover,
+                    fontWeight: 550,
                   },
                 }}
               >
-                <ListItemText primary={item.text} />
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    fontSize: "13px",
+                    fontWeight: 550,
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           );

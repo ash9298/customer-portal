@@ -2,6 +2,7 @@ import { Chip, Avatar, Stack, Tooltip, Typography, Box } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 
 import { DataTable } from "../../ui/DataTable";
+import { darkTokens } from "../../ui/theme";
 
 const formatUTCDate = (date) => {
   if (!date) return "-";
@@ -47,6 +48,7 @@ const columns = [
                 whiteSpace: "normal",
                 lineHeight: 1.3,
                 cursor: "pointer",
+                color: darkTokens.text.primary,
               }}
             >
               {value}
@@ -65,8 +67,11 @@ const columns = [
       <Chip
         label={params.value}
         size="small"
-        color="secondary"
-        sx={{ borderRadius: "12px", bgcolor: "#feebff", color: "#af00b8" }}
+        sx={{
+          borderRadius: "12px",
+          bgcolor: darkTokens.accent.soft,
+          color: darkTokens.accent.info,
+        }}
       />
     ),
   },
@@ -95,8 +100,8 @@ const columns = [
           <Stack direction="row" spacing={1} alignItems="center">
             <Avatar
               sx={{
-                bgcolor: "#FFF3B0",
-                color: "#999900",
+                bgcolor: darkTokens.status.warningBg,
+                color: darkTokens.status.warning,
                 width: 32,
                 height: 32,
                 fontSize: 14,
@@ -104,7 +109,9 @@ const columns = [
             >
               {initials}
             </Avatar>
-            <Typography variant="body2">{params.value}</Typography>
+            <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+              {params.value}
+            </Typography>
           </Stack>
         </Box>
       );
@@ -144,8 +151,8 @@ const columns = [
           <Stack direction="row" spacing={1} alignItems="center">
             <Avatar
               sx={{
-                bgcolor: "#dbf9f7",
-                color: "#178b83",
+                bgcolor: darkTokens.accent.soft,
+                color: darkTokens.accent.info,
                 width: 32,
                 height: 32,
                 fontSize: 14,
@@ -160,8 +167,10 @@ const columns = [
                 justifyContent: "center",
               }}
             >
-              <Typography variant="body2">{name}</Typography>
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+                {name}
+              </Typography>
+              <Typography variant="caption" sx={{ color: darkTokens.text.secondary }}>
                 {email}
               </Typography>
             </Box>
@@ -179,7 +188,9 @@ const columns = [
     field: "",
     headerName: "",
     flex: 1,
-    renderCell: () => <ChatIcon fontSize="small" />,
+    renderCell: () => (
+      <ChatIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+    ),
   },
 ];
 

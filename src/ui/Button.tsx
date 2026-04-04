@@ -1,23 +1,32 @@
 import { styled } from "@mui/material/styles";
 import { Button, type ButtonProps } from "@mui/material";
+import { darkTokens } from "./theme";
 
-export const PrimaryButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: "#fff",
-  fontWeight: 600,
+export const PrimaryButton = styled(Button)<ButtonProps>(() => ({
+  backgroundColor: darkTokens.accent.primary,
+  color: darkTokens.text.primary,
+  fontWeight: 550,
+  fontSize: "13px",
+  height: "28px",
+  padding: "0 10px",
   borderRadius: "4px",
+  border: "1px solid transparent",
   "&:hover": {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: darkTokens.accent.primaryHover,
   },
 }));
 
-export const SecondaryButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  backgroundColor: "#fff",
-  color: "#333",
-  fontWeight: 600,
-  border: "1px solid #d6d6d6",
+export const SecondaryButton = styled(Button)<ButtonProps>(() => ({
+  backgroundColor: darkTokens.background.muted,
+  color: darkTokens.text.primary,
+  fontWeight: 550,
+  fontSize: "13px",
+  height: "28px",
+  padding: "0 10px",
+  border: `1px solid ${darkTokens.border.default}`,
   borderRadius: "4px",
   "&:hover": {
-    backgroundColor: "#e6e6e6",
+    backgroundColor: darkTokens.background.hover,
+    borderColor: darkTokens.text.secondary,
   },
 }));

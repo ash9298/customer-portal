@@ -7,7 +7,13 @@ const Logo = () => {
       component="img"
       src={LogoImg}
       alt="Customer Portal"
-      sx={{ width: 200, height: "auto", my: 2, alignSelf: "center" }}
+      sx={{
+        width: 200,
+        height: "auto",
+        my: 2,
+        mx: "auto",
+        display: "block",
+      }}
     />
   );
 };

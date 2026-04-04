@@ -5,6 +5,7 @@ import AuthLayout from "./AuthLayout";
 import { useForm, Controller } from "react-hook-form";
 import { PrimaryButton } from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
+import { darkTokens } from "../../ui/theme";
 
 type SignupFormValues = {
   firstName: string;
@@ -28,6 +29,17 @@ const SignupForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { control, handleSubmit } = useForm<SignupFormValues>();
   const navigate = useNavigate();
+
+  const inputSx = {
+    "& .MuiInputLabel-root": { color: darkTokens.text.secondary },
+    "& .MuiOutlinedInput-root": {
+      color: darkTokens.text.primary,
+      backgroundColor: darkTokens.background.app,
+      "& fieldset": { borderColor: darkTokens.border.default },
+      "&:hover fieldset": { borderColor: darkTokens.text.secondary },
+      "&.Mui-focused fieldset": { borderColor: darkTokens.accent.primary },
+    },
+  };
 
   const onSubmit = async (data: SignupFormValues) => {
     setLoading(true);
@@ -72,6 +84,7 @@ const SignupForm: React.FC = () => {
               fullWidth
               label="First name"
               margin="normal"
+              sx={inputSx}
             />
           )}
         />
@@ -81,7 +94,13 @@ const SignupForm: React.FC = () => {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField {...field} fullWidth label="Last name" margin="normal" />
+            <TextField
+              {...field}
+              fullWidth
+              label="Last name"
+              margin="normal"
+              sx={inputSx}
+            />
           )}
         />
 
@@ -90,7 +109,13 @@ const SignupForm: React.FC = () => {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField {...field} fullWidth label="Email" margin="normal" />
+            <TextField
+              {...field}
+              fullWidth
+              label="Email"
+              margin="normal"
+              sx={inputSx}
+            />
           )}
         />
 
@@ -105,6 +130,7 @@ const SignupForm: React.FC = () => {
               type="password"
               label="Password"
               margin="normal"
+              sx={inputSx}
             />
           )}
         />
@@ -112,7 +138,15 @@ const SignupForm: React.FC = () => {
         <PrimaryButton fullWidth type="submit" sx={{ mt: 3 }}>
           {loading ? <CircularProgress size={24} color="inherit" /> : "Sign Up"}
         </PrimaryButton>
-        <Divider sx={{ my: 2 }}>or</Divider>
+        <Divider
+          sx={{
+            my: 2,
+            borderColor: darkTokens.border.default,
+            color: darkTokens.text.secondary,
+          }}
+        >
+          or
+        </Divider>
         <PrimaryButton fullWidth type="submit">
           Sign up with SSO
         </PrimaryButton>

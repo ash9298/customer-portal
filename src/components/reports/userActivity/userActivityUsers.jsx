@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   Grid,
   Box,
@@ -18,7 +18,7 @@ import {
   Chip,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { blue, grey } from "@mui/material/colors";
+import { darkTokens } from "../../../ui/theme";
 
 const activeUsers = [
   {
@@ -193,7 +193,13 @@ const UserActivityUsers = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ mt: 3, borderRadius: 0, position: "relative" }}
+      sx={{
+        mt: 3,
+        borderRadius: "4px",
+        position: "relative",
+        backgroundColor: darkTokens.background.surface,
+        borderColor: darkTokens.border.default,
+      }}
     >
       <Grid container>
         {/* Active Users Section */}
@@ -202,8 +208,8 @@ const UserActivityUsers = () => {
           xs={12}
           md={6}
           sx={{
-            borderRight: { md: "1px solid #e0e0e0" },
-            borderBottom: { xs: "1px solid #e0e0e0", md: "none" },
+            borderRight: { md: `1px solid ${darkTokens.border.strong}` },
+            borderBottom: { xs: `1px solid ${darkTokens.border.strong}`, md: "none" },
             position: "relative",
             minWidth: "50%",
           }}
@@ -216,11 +222,10 @@ const UserActivityUsers = () => {
             slotProps={{
               tooltip: {
                 sx: {
-                  bgcolor: "#fff",
-                  color: "#222",
+                  bgcolor: darkTokens.background.elevated,
+                  color: darkTokens.text.primary,
                   fontSize: 12,
-                  boxShadow:
-                    "0 2px 6px 0 rgba(0, 0, 0, .12), 0 6px 12px 0 rgba(55, 55, 55, .08)",
+                  boxShadow: darkTokens.overlay.shadowTooltip,
                   p: 1.5,
                 },
               },
@@ -233,35 +238,47 @@ const UserActivityUsers = () => {
                 top: 12,
                 right: 12,
                 zIndex: 1,
+                color: darkTokens.text.secondary,
               }}
             >
-              <InfoOutlinedIcon fontSize="small" color="action" />
+              <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
 
           <Box sx={{ p: 3 }}>
-            <Typography variant="h6" fontWeight={600} sx={{ mb: 2 }}>
+            <Typography
+              variant="h6"
+              fontWeight={550}
+              sx={{ mb: 2, color: darkTokens.text.primary }}
+            >
               Active Users
             </Typography>
-            <Divider sx={{ mb: 2 }} />
+            <Divider sx={{ mb: 2, borderColor: darkTokens.border.default }} />
 
             {/* Active Users Table */}
             <Table size="small" sx={{ minWidth: "100%", mb: 2 }}>
               <TableHead>
-                <TableRow sx={{ bgcolor: grey[50] }}>
+                <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
                   <TableCell
-                    sx={{ fontWeight: 600, color: grey[600], border: "none" }}
+                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
                   >
                     <TableSortLabel
                       active={activeOrderBy === "User"}
                       direction={activeOrderBy === "User" ? activeOrder : "asc"}
                       onClick={() => handleActiveSort("User")}
+                      sx={{
+                        color: darkTokens.text.secondary,
+                        "&.Mui-active": { color: darkTokens.text.primary },
+                        "& .MuiTableSortLabel-icon": {
+                          color: `${darkTokens.text.secondary} !important`,
+                        },
+                      }}
                     >
                       User
                     </TableSortLabel>
                   </TableCell>
                   <TableCell
-                    sx={{ fontWeight: 600, color: grey[600], border: "none" }}
+                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
                   >
                     <TableSortLabel
                       active={activeOrderBy === "Last Active Date"}
@@ -271,6 +288,13 @@ const UserActivityUsers = () => {
                           : "asc"
                       }
                       onClick={() => handleActiveSort("Last Active Date")}
+                      sx={{
+                        color: darkTokens.text.secondary,
+                        "&.Mui-active": { color: darkTokens.text.primary },
+                        "& .MuiTableSortLabel-icon": {
+                          color: `${darkTokens.text.secondary} !important`,
+                        },
+                      }}
                     >
                       Last activity date
                     </TableSortLabel>
@@ -286,32 +310,35 @@ const UserActivityUsers = () => {
                         borderBottom: "none",
                       },
                     }}
-                  >
+                    >
                     <TableCell
-                      sx={{ borderBottom: "1px solid #e0e0e0", py: 1.5 }}
+                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
                     >
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
                           sx={{
                             width: 32,
                             height: 32,
-                            bgcolor: blue[100],
-                            color: blue[800],
+                            bgcolor: darkTokens.accent.soft,
+                            color: darkTokens.accent.info,
                             fontSize: "0.875rem",
                             fontWeight: 500,
                           }}
                         >
                           {getInitials(user.User)}
                         </Avatar>
-                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: 500, color: darkTokens.text.primary }}
+                        >
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: "1px solid #e0e0e0", py: 1.5 }}
+                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
                     >
-                      <Typography variant="body2" sx={{ color: grey[700] }}>
+                      <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>
@@ -327,8 +354,8 @@ const UserActivityUsers = () => {
                 size="small"
                 sx={{
                   borderRadius: 1,
-                  bgcolor: grey[100],
-                  color: grey[800],
+                  bgcolor: darkTokens.background.muted,
+                  color: darkTokens.text.secondary,
                   fontWeight: 500,
                   fontSize: "0.75rem",
                   "& .MuiChip-label": { px: 1.5 },
@@ -356,11 +383,10 @@ const UserActivityUsers = () => {
             slotProps={{
               tooltip: {
                 sx: {
-                  bgcolor: "#fff",
-                  color: "#222",
+                  bgcolor: darkTokens.background.elevated,
+                  color: darkTokens.text.primary,
                   fontSize: 12,
-                  boxShadow:
-                    "0 2px 6px 0 rgba(0, 0, 0, .12), 0 6px 12px 0 rgba(55, 55, 55, .08)",
+                  boxShadow: darkTokens.overlay.shadowTooltip,
                   p: 1.5,
                 },
               },
@@ -373,24 +399,29 @@ const UserActivityUsers = () => {
                 top: 12,
                 right: 12,
                 zIndex: 1,
+                color: darkTokens.text.secondary,
               }}
             >
-              <InfoOutlinedIcon fontSize="small" color="action" />
+              <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
 
           <Box sx={{ p: 3 }}>
-            <Typography variant="h6" fontWeight={600} sx={{ mb: 2 }}>
+            <Typography
+              variant="h6"
+              fontWeight={550}
+              sx={{ mb: 2, color: darkTokens.text.primary }}
+            >
               Inactive Users
             </Typography>
-            <Divider sx={{ mb: 2 }} />
+            <Divider sx={{ mb: 2, borderColor: darkTokens.border.default }} />
 
             {/* Inactive Users Table */}
             <Table size="small" sx={{ minWidth: "100%", mb: 2 }}>
               <TableHead>
-                <TableRow sx={{ bgcolor: grey[50] }}>
+                <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
                   <TableCell
-                    sx={{ fontWeight: 600, color: grey[600], border: "none" }}
+                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
                   >
                     <TableSortLabel
                       active={inactiveOrderBy === "User"}
@@ -398,12 +429,19 @@ const UserActivityUsers = () => {
                         inactiveOrderBy === "User" ? inactiveOrder : "asc"
                       }
                       onClick={() => handleInactiveSort("User")}
+                      sx={{
+                        color: darkTokens.text.secondary,
+                        "&.Mui-active": { color: darkTokens.text.primary },
+                        "& .MuiTableSortLabel-icon": {
+                          color: `${darkTokens.text.secondary} !important`,
+                        },
+                      }}
                     >
                       User
                     </TableSortLabel>
                   </TableCell>
                   <TableCell
-                    sx={{ fontWeight: 600, color: grey[600], border: "none" }}
+                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
                   >
                     <TableSortLabel
                       active={inactiveOrderBy === "Last Active Date"}
@@ -413,6 +451,13 @@ const UserActivityUsers = () => {
                           : "asc"
                       }
                       onClick={() => handleInactiveSort("Last Active Date")}
+                      sx={{
+                        color: darkTokens.text.secondary,
+                        "&.Mui-active": { color: darkTokens.text.primary },
+                        "& .MuiTableSortLabel-icon": {
+                          color: `${darkTokens.text.secondary} !important`,
+                        },
+                      }}
                     >
                       Last activity date
                     </TableSortLabel>
@@ -428,32 +473,35 @@ const UserActivityUsers = () => {
                         borderBottom: "none",
                       },
                     }}
-                  >
+                    >
                     <TableCell
-                      sx={{ borderBottom: "1px solid #e0e0e0", py: 1.5 }}
+                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
                     >
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
                           sx={{
                             width: 32,
                             height: 32,
-                            bgcolor: grey[200],
-                            color: grey[700],
+                            bgcolor: darkTokens.background.muted,
+                            color: darkTokens.text.secondary,
                             fontSize: "0.875rem",
                             fontWeight: 500,
                           }}
                         >
                           {getInitials(user.User)}
                         </Avatar>
-                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: 500, color: darkTokens.text.primary }}
+                        >
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: "1px solid #e0e0e0", py: 1.5 }}
+                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
                     >
-                      <Typography variant="body2" sx={{ color: grey[700] }}>
+                      <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>
@@ -469,8 +517,8 @@ const UserActivityUsers = () => {
                 size="small"
                 sx={{
                   borderRadius: 1,
-                  bgcolor: grey[100],
-                  color: grey[800],
+                  bgcolor: darkTokens.background.muted,
+                  color: darkTokens.text.secondary,
                   fontWeight: 500,
                   fontSize: "0.75rem",
                   "& .MuiChip-label": { px: 1.5 },

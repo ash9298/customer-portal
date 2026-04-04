@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Typography,
-  useTheme,
   List,
   ListItem,
   ListItemText,
@@ -27,9 +26,9 @@ import {
 } from "@mui/icons-material";
 import { useMsal } from "@azure/msal-react";
 import { type RootState } from "../../store";
+import { darkTokens } from "../../ui/theme";
 
 const Footer = () => {
-  const theme = useTheme();
   const user = useSelector((state: RootState) => state.auth.user);
   const { instance } = useMsal();
   const [resourcesOpen, setResourcesOpen] = useState(false);
@@ -75,8 +74,8 @@ const Footer = () => {
       sx={{
         flexShrink: 0,
         p: 2,
-        backgroundColor: theme.palette.background.paper,
-        borderTop: `1px solid ${theme.palette.divider}`,
+        backgroundColor: darkTokens.background.elevated,
+        borderTop: `1px solid ${darkTokens.border.default}`,
       }}
     >
       {/* Knowledge Resources Dropdown Header */}
@@ -90,13 +89,16 @@ const Footer = () => {
         }}
         onClick={toggleResources}
       >
-        <IconButton size="small" sx={{ color: theme.palette.text.secondary }}>
+        <IconButton size="small" sx={{ color: darkTokens.text.secondary }}>
           <Help fontSize="small" />
         </IconButton>
-        <Typography sx={{ fontSize: "12px", color: "#333" }} fontWeight="600">
+        <Typography
+          sx={{ fontSize: "12px", color: darkTokens.text.secondary }}
+          fontWeight={550}
+        >
           Knowledge resources
         </Typography>
-        <IconButton size="small" sx={{ p: 0.5 }}>
+        <IconButton size="small" sx={{ p: 0.5, color: darkTokens.text.secondary }}>
           {resourcesOpen ? (
             <ExpandLess fontSize="small" />
           ) : (
@@ -116,14 +118,14 @@ const Footer = () => {
                 py: 1,
                 alignItems: "flex-start",
                 "&:hover": {
-                  backgroundColor: theme.palette.action.hover,
+                  backgroundColor: darkTokens.background.muted,
                   borderRadius: 1,
                 },
                 cursor: "pointer",
               }}
             >
               <ListItemIcon sx={{ minWidth: 36, mt: 0.25 }}>
-                <Box sx={{ color: theme.palette.primary.main }}>
+                <Box sx={{ color: darkTokens.accent.primary }}>
                   {item.icon}
                 </Box>
               </ListItemIcon>
@@ -133,8 +135,8 @@ const Footer = () => {
                     variant="body2"
                     fontWeight="500"
                     sx={{
-                      color: theme.palette.text.primary,
-                      fontSize: "0.875rem",
+                      color: darkTokens.text.primary,
+                      fontSize: "13px",
                     }}
                   >
                     {item.text}
@@ -144,10 +146,10 @@ const Footer = () => {
                   <Typography
                     variant="caption"
                     sx={{
-                      color: theme.palette.text.secondary,
+                      color: darkTokens.text.secondary,
                       lineHeight: 1.3,
                       display: "block",
-                      fontSize: "0.75rem",
+                      fontSize: "12px",
                     }}
                   >
                     {item.description}
@@ -160,7 +162,9 @@ const Footer = () => {
         </List>
       </Collapse>
 
-      {resourcesOpen && <Divider sx={{ my: 1.5 }} />}
+      {resourcesOpen && (
+        <Divider sx={{ my: 1.5, borderColor: darkTokens.border.default }} />
+      )}
 
       {/* User Section Header - Always visible */}
       <Stack
@@ -176,12 +180,12 @@ const Footer = () => {
         <Stack direction="row" spacing={1} alignItems="center">
           <Avatar
             sx={{
-              bgcolor: "#feebff",
-              color: "#af00b8",
+              bgcolor: darkTokens.accent.primary,
+              color: darkTokens.text.primary,
               width: 32,
               height: 32,
               fontSize: 12,
-              fontWeight: 500,
+              fontWeight: 550,
             }}
           >
             {user
@@ -191,13 +195,18 @@ const Footer = () => {
               : "AG"}
           </Avatar>
           <Box>
-            <Typography variant="body2" fontWeight="500" fontSize="0.875rem">
+            <Typography
+              variant="body2"
+              fontWeight={550}
+              fontSize="13px"
+              color={darkTokens.text.primary}
+            >
               {user ? `${user.firstName} ${user.lastName}` : "Ashish Gupta"}
             </Typography>
             <Typography
               variant="caption"
-              color="text.secondary"
-              fontSize="0.75rem"
+              color={darkTokens.text.secondary}
+              fontSize="12px"
             >
               {user?.email
                 ? user.email.split("@")[0] + "@..."
@@ -209,7 +218,7 @@ const Footer = () => {
         <IconButton
           size="small"
           sx={{
-            color: theme.palette.text.secondary,
+            color: darkTokens.text.secondary,
             transform: userOpen ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 0.2s",
           }}
@@ -235,15 +244,15 @@ const Footer = () => {
               justifyContent: "flex-start",
               px: 2,
               py: 1.5,
-              color: theme.palette.error.main,
+              color: darkTokens.status.dangerSoft,
               textTransform: "none",
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              backgroundColor: theme.palette.background.paper,
-              border: `1px solid ${theme.palette.divider}`,
+              fontSize: "13px",
+              fontWeight: 550,
+              backgroundColor: darkTokens.background.surface,
+              border: `1px solid ${darkTokens.border.default}`,
               "&:hover": {
-                backgroundColor: theme.palette.error.light + "20",
-                borderColor: theme.palette.error.light,
+                backgroundColor: darkTokens.status.dangerHoverBg,
+                borderColor: darkTokens.status.danger,
               },
             }}
           >

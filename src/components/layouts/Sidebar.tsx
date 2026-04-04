@@ -1,25 +1,26 @@
 import React from "react";
 import { Box, Divider, Drawer } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import StatusTile from "../../ui/StatusTile";
 import Footer from "./Footer";
 import Logo from "./Logo";
 import Menu from "./Menu";
+import { darkTokens } from "../../ui/theme";
 
 const Sidebar: React.FC = () => {
-  const theme = useTheme();
   const drawerWidth = 240;
   return (
     <Drawer
       sx={{
         width: drawerWidth,
-        padding: theme.spacing(1),
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
           display: "flex",
           flexDirection: "column",
+          backgroundColor: darkTokens.background.elevated,
+          color: darkTokens.text.primary,
+          borderRight: `1px solid ${darkTokens.border.default}`,
         },
       }}
       variant="permanent"
@@ -35,7 +36,7 @@ const Sidebar: React.FC = () => {
 
         <Menu />
       </Box>
-      <Divider />
+      <Divider sx={{ borderColor: darkTokens.border.default }} />
       <StatusTile />
 
       <Footer />

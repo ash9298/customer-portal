@@ -5,16 +5,14 @@ import {
   Typography,
   Grid,
   Stack,
-  useTheme,
 } from "@mui/material";
 import Download from "../../assets/download.svg";
 import AI from "../../assets/ai.svg";
 import Cloud from "../../assets/cloud.svg";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { PrimaryButton } from "../../ui/Button";
+import { darkTokens } from "../../ui/theme";
 const Addon = () => {
-  const theme = useTheme();
-
   const blocks = [
     {
       title: "Boost your testing efficiency with Leapwork's Cloud Agents",
@@ -22,8 +20,6 @@ const Addon = () => {
         "Seamless Integration with Zero Maintenance and Installation Challenges.",
       actionText: "Learn More",
       icon: Download,
-      chipText: null,
-      color: theme.palette.primary.light,
       elevation: 2,
     },
     {
@@ -32,9 +28,6 @@ const Addon = () => {
         "Seamless integration, zero installation. Boost productivity with advanced cloud automation.",
       actionText: "Learn More",
       icon: Cloud,
-      chipText: "Active",
-      chipColor: "success",
-      color: theme.palette.secondary.light,
       elevation: 3,
     },
     {
@@ -43,9 +36,6 @@ const Addon = () => {
         "Enhance software quality with AI testing tools, helping your teams deliver results more effectively.",
       actionText: "Learn More",
       icon: AI,
-      chipText: "Active",
-      chipColor: "info",
-      color: theme.palette.info.light,
       elevation: 2,
     },
   ];
@@ -59,10 +49,10 @@ const Addon = () => {
             width: "400px",
             display: "flex",
             flexDirection: "column",
-            border: `1px solid ${theme.palette.divider}`,
-            backgroundColor: theme.palette.background.paper,
+            border: `1px solid ${darkTokens.border.default}`,
+            backgroundColor: darkTokens.background.surface,
             boxShadow: "none",
-            borderRadius: "0",
+            borderRadius: "4px",
           }}
           elevation={block.elevation}
           key={index}
@@ -93,8 +83,9 @@ const Addon = () => {
                 component="h2"
                 gutterBottom
                 sx={{
-                  fontWeight: 600,
+                  fontWeight: 550,
                   lineHeight: 1.3,
+                  color: darkTokens.text.primary,
                 }}
               >
                 {block.title}
@@ -106,6 +97,7 @@ const Addon = () => {
                 sx={{
                   lineHeight: 1.6,
                   mb: 2,
+                  color: darkTokens.text.secondary,
                 }}
               >
                 {block.description}
@@ -117,7 +109,7 @@ const Addon = () => {
               >
                 <Box
                   sx={{
-                    color: "#37a656",
+                    color: darkTokens.status.successLight,
                     display: "flex",
                     gap: 1,
                   }}
@@ -133,6 +125,12 @@ const Addon = () => {
                     fontWeight: 500,
                     borderRadius: "4px",
                     px: 4,
+                    color: darkTokens.text.primary,
+                    borderColor: darkTokens.border.default,
+                    "&:hover": {
+                      borderColor: darkTokens.text.secondary,
+                      backgroundColor: darkTokens.background.hover,
+                    },
                   }}
                 >
                   {block.actionText}

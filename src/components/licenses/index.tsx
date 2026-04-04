@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { checkCustomer, getAllLicenses } from "../../api/licenseAPI";
 import LicenseTable from "./LicenseTable";
+import { darkTokens } from "../../ui/theme";
 
 type LicenseInfo = {
   LicenseId: number;
@@ -102,7 +103,17 @@ const Licenses: React.FC = () => {
   // if (error) return <div>Error: {error}</div>;
 
   return error ? (
-    <div>Error: Not able to fetch licenses</div>
+    <div
+      style={{
+        padding: "16px",
+        borderRadius: "4px",
+        background: darkTokens.background.surface,
+        border: `1px solid ${darkTokens.border.default}`,
+        color: darkTokens.status.dangerSoft,
+      }}
+    >
+      Error: Not able to fetch licenses
+    </div>
   ) : (
     <LicenseTable licenses={licenses} isLoading={loading} />
   );

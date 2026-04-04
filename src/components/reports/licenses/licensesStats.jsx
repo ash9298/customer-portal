@@ -7,12 +7,19 @@ import {
   IconButton,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { darkTokens } from "../../../ui/theme";
 
 const LicensesStats = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ p: 2, borderRadius: 0, position: "relative" }}
+      sx={{
+        p: 2,
+        borderRadius: "4px",
+        position: "relative",
+        backgroundColor: darkTokens.background.surface,
+        borderColor: darkTokens.border.default,
+      }}
     >
       <Tooltip
         title="Number of available Licenses, Studios, Agents and Controllers"
@@ -20,11 +27,10 @@ const LicensesStats = () => {
         slotProps={{
           tooltip: {
             sx: {
-              bgcolor: "#fff",
-              color: "#222",
+              bgcolor: darkTokens.background.elevated,
+              color: darkTokens.text.primary,
               fontSize: 12,
-              boxShadow:
-                "0 2px 6px 0 rgba(0, 0, 0, .12), 0 6px 12px 0 rgba(55, 55, 55, .08)",
+              boxShadow: darkTokens.overlay.shadowTooltip,
             },
           },
         }}
@@ -35,9 +41,10 @@ const LicensesStats = () => {
             position: "absolute",
             top: 8,
             right: 8,
+            color: darkTokens.text.secondary,
           }}
         >
-          <InfoOutlinedIcon fontSize="small" color="action" />
+          <InfoOutlinedIcon fontSize="small" />
         </IconButton>
       </Tooltip>
       <Grid
@@ -54,10 +61,10 @@ const LicensesStats = () => {
         ].map((item) => (
           <Grid item key={item.label} sx={{ minWidth: "calc(100%/4)" }}>
             <Box>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                 {item.label}
               </Typography>
-              <Typography variant="h5" fontWeight={600}>
+              <Typography variant="h5" fontWeight={550} sx={{ color: darkTokens.text.primary }}>
                 {item.value}
               </Typography>
             </Box>

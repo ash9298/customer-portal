@@ -20,6 +20,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
+import { darkTokens } from "./theme";
 
 // Option 1: Alert-style component
 export const LicenseNoteAlert = () => {
@@ -39,12 +40,16 @@ export const LicenseNoteAlert = () => {
         mt: 2,
         mb: 3,
         borderRadius: 1,
+        border: `1px solid ${darkTokens.border.default}`,
+        backgroundColor: darkTokens.background.surface,
+        color: darkTokens.text.primary,
         "& .MuiAlert-message": { width: "100%" },
+        "& .MuiAlert-icon": { color: darkTokens.status.warning },
       }}
       action={
         <IconButton
           aria-label="close"
-          color="inherit"
+          sx={{ color: darkTokens.text.secondary }}
           size="small"
           onClick={handleClose}
         >
@@ -52,57 +57,66 @@ export const LicenseNoteAlert = () => {
         </IconButton>
       }
     >
-      <AlertTitle sx={{ fontWeight: 600, mb: 1 }}>
+      <AlertTitle sx={{ fontWeight: 550, mb: 1, color: darkTokens.text.primary }}>
         Important License Update Note
       </AlertTitle>
-      <Typography variant="body2" sx={{ mb: 1.5 }}>
+      <Typography variant="body2" sx={{ mb: 1.5, color: darkTokens.text.secondary }}>
         Before applying a new license key, kindly review:
       </Typography>
 
       <List dense sx={{ py: 0, mb: 1.5 }}>
         <ListItem sx={{ py: 0.5, pl: 0 }}>
           <ListItemIcon sx={{ minWidth: 36 }}>
-            <PeopleIcon fontSize="small" />
+            <PeopleIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
           </ListItemIcon>
           <ListItemText
             primary="Number of users in the User Management section"
-            primaryTypographyProps={{ variant: "body2" }}
+            primaryTypographyProps={{ variant: "body2", color: darkTokens.text.secondary }}
           />
         </ListItem>
         <ListItem sx={{ py: 0.5, pl: 0 }}>
           <ListItemIcon sx={{ minWidth: 36 }}>
-            <BusinessIcon fontSize="small" />
+            <BusinessIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
           </ListItemIcon>
           <ListItemText
             primary="Number of studios assigned to your license"
-            primaryTypographyProps={{ variant: "body2" }}
+            primaryTypographyProps={{ variant: "body2", color: darkTokens.text.secondary }}
           />
         </ListItem>
       </List>
 
-      <Typography variant="body2" sx={{ mb: 1.5 }}>
+      <Typography variant="body2" sx={{ mb: 1.5, color: darkTokens.text.secondary }}>
         If you notice any discrepancies, please reach out to:
       </Typography>
 
       <Box sx={{ display: "flex", gap: 2, mb: 1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <ContactSupportIcon fontSize="small" />
-          <Typography variant="body2">
+          <ContactSupportIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+          <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
             Leapwork Customer Success Manager (CSM)
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <ContactSupportIcon fontSize="small" />
-          <Typography variant="body2">Support Team</Typography>
+          <ContactSupportIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+          <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+            Support Team
+          </Typography>
         </Box>
       </Box>
 
       <Alert
         severity="error"
-        sx={{ mt: 1.5, borderRadius: 1 }}
-        icon={<WarningIcon />}
+        sx={{
+          mt: 1.5,
+          borderRadius: 1,
+          border: `1px solid ${darkTokens.status.dangerBorder}`,
+          backgroundColor: darkTokens.status.dangerBg,
+          color: darkTokens.text.primary,
+          "& .MuiAlert-icon": { color: darkTokens.status.dangerSoft },
+        }}
+        icon={<WarningIcon sx={{ color: darkTokens.status.dangerSoft }} />}
       >
-        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+        <Typography variant="body2" sx={{ fontWeight: 500, color: darkTokens.text.primary }}>
           Important: Applying a license with a smaller number of studios than
           currently used seats may lead to the deletion of users during the
           upgrade.
@@ -110,8 +124,8 @@ export const LicenseNoteAlert = () => {
       </Alert>
 
       <Box sx={{ display: "flex", alignItems: "center", mt: 2, gap: 1 }}>
-        <CheckCircleIcon color="success" fontSize="small" />
-        <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+        <CheckCircleIcon sx={{ color: darkTokens.status.successLight }} fontSize="small" />
+        <Typography variant="body2" sx={{ fontStyle: "italic", color: darkTokens.text.secondary }}>
           Thank you for your attention!
         </Typography>
       </Box>
@@ -123,8 +137,10 @@ export const LicenseNoteAlert = () => {
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: theme.spacing(1),
-  borderLeft: `4px solid ${theme.palette.warning.main}`,
-  backgroundColor: theme.palette.warning.light + "20",
+  borderLeft: `4px solid ${darkTokens.status.warning}`,
+  border: `1px solid ${darkTokens.border.default}`,
+  backgroundColor: darkTokens.background.surface,
+  color: darkTokens.text.primary,
   position: "relative",
   overflow: "hidden",
 }));
@@ -133,55 +149,63 @@ export const LicenseNotePaper = () => {
   return (
     <StyledPaper elevation={0}>
       <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
-        <InfoIcon color="warning" sx={{ mr: 1.5, mt: 0.5 }} />
+        <InfoIcon sx={{ mr: 1.5, mt: 0.5, color: darkTokens.status.warning }} />
         <Box>
-          <Typography variant="h6" color="warning.dark" gutterBottom>
+          <Typography variant="h6" sx={{ color: darkTokens.text.primary }} gutterBottom>
             Note: License Update Instructions
           </Typography>
-          <Typography variant="body2" color="text.secondary" paragraph>
+          <Typography variant="body2" color={darkTokens.text.secondary} paragraph>
             Before applying a new license key, please carefully follow these
             steps:
           </Typography>
         </Box>
       </Box>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2, borderColor: darkTokens.border.default }} />
 
       <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="subtitle2"
+          gutterBottom
+          sx={{ fontWeight: 550, color: darkTokens.text.primary }}
+        >
           Step 1: Review Current Usage
         </Typography>
         <List dense sx={{ pl: 2 }}>
           <ListItem sx={{ py: 0.5, pl: 0 }}>
             <ListItemIcon sx={{ minWidth: 32 }}>
-              <PeopleIcon fontSize="small" color="action" />
+              <PeopleIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
             </ListItemIcon>
             <ListItemText
               primary="Check the number of users in User Management section"
               secondary="Go to User Management to verify current user count"
-              primaryTypographyProps={{ variant: "body2" }}
-              secondaryTypographyProps={{ variant: "caption" }}
+              primaryTypographyProps={{ variant: "body2", color: darkTokens.text.primary }}
+              secondaryTypographyProps={{ variant: "caption", color: darkTokens.text.secondary }}
             />
           </ListItem>
           <ListItem sx={{ py: 0.5, pl: 0 }}>
             <ListItemIcon sx={{ minWidth: 32 }}>
-              <BusinessIcon fontSize="small" color="action" />
+              <BusinessIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
             </ListItemIcon>
             <ListItemText
               primary="Verify studios assigned to your license"
               secondary="Confirm studio count matches your license"
-              primaryTypographyProps={{ variant: "body2" }}
-              secondaryTypographyProps={{ variant: "caption" }}
+              primaryTypographyProps={{ variant: "body2", color: darkTokens.text.primary }}
+              secondaryTypographyProps={{ variant: "caption", color: darkTokens.text.secondary }}
             />
           </ListItem>
         </List>
       </Box>
 
       <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="subtitle2"
+          gutterBottom
+          sx={{ fontWeight: 550, color: darkTokens.text.primary }}
+        >
           Step 2: Address Discrepancies
         </Typography>
-        <Typography variant="body2" paragraph>
+        <Typography variant="body2" color={darkTokens.text.secondary} paragraph>
           If numbers don't match, contact immediately:
         </Typography>
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mt: 1 }}>
@@ -189,19 +213,19 @@ export const LicenseNotePaper = () => {
             sx={{
               p: 1.5,
               borderRadius: 1,
-              bgcolor: "background.paper",
+              bgcolor: darkTokens.background.app,
+              border: `1px solid ${darkTokens.border.subtle}`,
               flex: 1,
               minWidth: 200,
             }}
           >
             <Typography
               variant="caption"
-              color="primary"
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 550, color: darkTokens.accent.info }}
             >
               Customer Success Manager
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
               Your dedicated CSM for assistance
             </Typography>
           </Box>
@@ -209,19 +233,19 @@ export const LicenseNotePaper = () => {
             sx={{
               p: 1.5,
               borderRadius: 1,
-              bgcolor: "background.paper",
+              bgcolor: darkTokens.background.app,
+              border: `1px solid ${darkTokens.border.subtle}`,
               flex: 1,
               minWidth: 200,
             }}
           >
             <Typography
               variant="caption"
-              color="primary"
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 550, color: darkTokens.accent.info }}
             >
               Support Team
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
               Technical support and license help
             </Typography>
           </Box>
@@ -232,24 +256,23 @@ export const LicenseNotePaper = () => {
         sx={{
           p: 2,
           borderRadius: 1,
-          bgcolor: "error.light",
+          bgcolor: darkTokens.status.dangerBg,
           border: "1px solid",
-          borderColor: "error.main",
+          borderColor: darkTokens.status.dangerBorder,
           mb: 2,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-          <WarningIcon color="error" sx={{ mr: 1, mt: 0.25 }} />
+          <WarningIcon sx={{ mr: 1, mt: 0.25, color: darkTokens.status.dangerSoft }} />
           <Box>
             <Typography
               variant="subtitle2"
-              color="error.dark"
               gutterBottom
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 550, color: darkTokens.text.primary }}
             >
               Critical Warning
             </Typography>
-            <Typography variant="body2" color="error.dark">
+            <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
               Applying a license with fewer studios than currently used seats
               may result in <strong>user deletion</strong> during upgrade.
             </Typography>
@@ -257,13 +280,12 @@ export const LicenseNotePaper = () => {
         </Box>
       </Box>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 2, borderColor: darkTokens.border.default }} />
 
       <Box sx={{ textAlign: "center", pt: 1 }}>
         <Typography
           variant="body2"
-          color="success.main"
-          sx={{ fontStyle: "italic", fontWeight: 500 }}
+          sx={{ fontStyle: "italic", fontWeight: 500, color: darkTokens.status.successLight }}
         >
           Thank you for your attention and careful review!
         </Typography>
@@ -277,20 +299,29 @@ export const LicenseNoteCompact = () => {
   return (
     <Alert
       severity="info"
-      icon={<InfoIcon sx={{ color: "#ff8200" }} />}
+      icon={<InfoIcon sx={{ color: darkTokens.status.warning }} />}
       sx={{
         borderRadius: "4px",
         alignItems: "center",
-        border: "1px solid #ffa84d",
-        background: "#fce7cd",
+        border: `1px solid ${darkTokens.status.warningBg}`,
+        background: darkTokens.status.warningBgSoft,
         marginBottom: "20px",
+        "& .MuiAlert-icon": {
+          color: darkTokens.status.warning,
+        },
       }}
     >
-      <Box sx={{ color: "#333" }}>
-        <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+      <Box sx={{ color: darkTokens.text.secondary }}>
+        <Typography
+          variant="subtitle2"
+          sx={{ fontWeight: 550, color: darkTokens.text.primary }}
+        >
           Note
         </Typography>
-        <Typography variant="body2" sx={{ fontSize: "12.5px" }}>
+        <Typography
+          variant="body2"
+          sx={{ fontSize: "12.5px", color: darkTokens.text.secondary }}
+        >
           Before applying a new license key, kindly review the number of users
           you have in the User Management section of the Leapwork platform and
           the number of studios assigned to your license. If you notice any

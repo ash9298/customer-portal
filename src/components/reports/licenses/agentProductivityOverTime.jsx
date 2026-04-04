@@ -3,13 +3,13 @@ import Plot from "react-plotly.js";
 import {
   Box,
   Typography,
-  Grid,
   Divider,
   Card,
   Tooltip,
   IconButton,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { darkTokens } from "../../../ui/theme";
 const AgentProductivityOverTime = () => {
   // Your provided data
   const chartData = [
@@ -30,14 +30,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#2563eb",
-        width: 2,
-      },
-      marker: {
-        color: "#2563eb",
-        size: 6,
-      },
+      line: { color: darkTokens.accent.primary, width: 2 },
+      marker: { color: darkTokens.accent.primary, size: 6 },
     },
     {
       x: [
@@ -56,14 +50,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#dc2626",
-        width: 2,
-      },
-      marker: {
-        color: "#dc2626",
-        size: 6,
-      },
+      line: { color: darkTokens.status.danger, width: 2 },
+      marker: { color: darkTokens.status.danger, size: 6 },
     },
     {
       x: [
@@ -82,14 +70,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#f59e0b",
-        width: 2,
-      },
-      marker: {
-        color: "#f59e0b",
-        size: 6,
-      },
+      line: { color: darkTokens.status.warning, width: 2 },
+      marker: { color: darkTokens.status.warning, size: 6 },
     },
     {
       x: [
@@ -108,14 +90,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#10b981",
-        width: 2,
-      },
-      marker: {
-        color: "#10b981",
-        size: 6,
-      },
+      line: { color: darkTokens.status.success, width: 2 },
+      marker: { color: darkTokens.status.success, size: 6 },
     },
     {
       x: [
@@ -134,14 +110,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#8b5cf6",
-        width: 2,
-      },
-      marker: {
-        color: "#8b5cf6",
-        size: 6,
-      },
+      line: { color: darkTokens.accent.purple, width: 2 },
+      marker: { color: darkTokens.accent.purple, size: 6 },
     },
     {
       x: [
@@ -160,14 +130,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: {
-        color: "#ec4899",
-        width: 2,
-      },
-      marker: {
-        color: "#ec4899",
-        size: 6,
-      },
+      line: { color: darkTokens.accent.sky, width: 2 },
+      marker: { color: darkTokens.accent.sky, size: 6 },
     },
   ];
 
@@ -183,12 +147,12 @@ const AgentProductivityOverTime = () => {
 
   // Customize colors for each agent
   const colors = [
-    "#2563eb", // Blue
-    "#dc2626", // Red
-    "#f59e0b", // Orange
-    "#10b981", // Green
-    "#ec4899", // Pink
-    "#8b5cf6", // Purple
+    darkTokens.accent.primary,
+    darkTokens.status.danger,
+    darkTokens.status.warning,
+    darkTokens.status.success,
+    darkTokens.accent.purple,
+    darkTokens.accent.sky,
   ];
 
   // Update each trace with custom colors
@@ -209,7 +173,7 @@ const AgentProductivityOverTime = () => {
     title: {
       font: {
         size: 16,
-        color: "#111827",
+        color: darkTokens.text.primary,
         weight: 500,
       },
       x: 0, // Left align
@@ -219,17 +183,17 @@ const AgentProductivityOverTime = () => {
         text: "Date",
         font: {
           size: 12,
-          color: "#6B7280",
+          color: darkTokens.text.secondary,
         },
       },
       tickangle: 0,
       tickfont: {
         size: 11,
-        color: "#6B7280",
+        color: darkTokens.text.secondary,
       },
-      gridcolor: "#F3F4F6",
+      gridcolor: darkTokens.border.grid,
       showline: true,
-      linecolor: "#E5E7EB",
+      linecolor: darkTokens.border.strong,
       linewidth: 1,
       mirror: true,
       side: "bottom",
@@ -244,23 +208,23 @@ const AgentProductivityOverTime = () => {
         text: "Run Time (Minutes)",
         font: {
           size: 12,
-          color: "#6B7280",
+          color: darkTokens.text.secondary,
         },
       },
       tickfont: {
-        color: "#6B7280",
+        color: darkTokens.text.secondary,
         size: 11,
       },
-      gridcolor: "#F3F4F6",
+      gridcolor: darkTokens.border.grid,
       rangemode: "nonnegative",
       zeroline: true,
-      zerolinecolor: "#E5E7EB",
+      zerolinecolor: darkTokens.border.strong,
       zerolinewidth: 1,
       side: "left",
       tickvals: [0, 50, 100, 150, 200],
       ticktext: ["0", "50", "100", "150", "200"],
       showline: true,
-      linecolor: "#E5E7EB",
+      linecolor: darkTokens.border.strong,
       linewidth: 1,
       mirror: true,
       // Reverse the y-axis (200 at bottom, 0 at top)
@@ -271,12 +235,12 @@ const AgentProductivityOverTime = () => {
       y: -0.25,
       xanchor: "center",
       x: 0.5,
-      bgcolor: "rgba(255,255,255,0.95)",
-      bordercolor: "#E5E7EB",
+      bgcolor: darkTokens.overlay.panel,
+      bordercolor: darkTokens.border.default,
       borderwidth: 1,
       font: {
         size: 11,
-        color: "#374151",
+        color: darkTokens.text.secondary,
       },
       traceorder: "normal",
       itemsizing: "constant",
@@ -289,15 +253,15 @@ const AgentProductivityOverTime = () => {
       b: 120,
       pad: 4,
     },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: darkTokens.background.surface,
+    plot_bgcolor: darkTokens.background.surface,
     hovermode: "x unified",
     hoverlabel: {
-      bgcolor: "#ffffff",
-      bordercolor: "#E5E7EB",
+      bgcolor: darkTokens.background.elevated,
+      bordercolor: darkTokens.border.strong,
       font: {
         size: 12,
-        color: "#111827",
+        color: darkTokens.text.primary,
       },
     },
     showlegend: true,
@@ -332,7 +296,13 @@ const AgentProductivityOverTime = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ mt: 3, borderRadius: 0, position: "relative" }}
+      sx={{
+        mt: 3,
+        borderRadius: "4px",
+        position: "relative",
+        backgroundColor: darkTokens.background.surface,
+        borderColor: darkTokens.border.default,
+      }}
     >
       <Box
         sx={{
@@ -341,7 +311,11 @@ const AgentProductivityOverTime = () => {
           p: 2,
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography
+          variant="h6"
+          fontWeight={550}
+          sx={{ color: darkTokens.text.primary }}
+        >
           Agent productivity over time
         </Typography>
         <Tooltip
@@ -350,11 +324,10 @@ const AgentProductivityOverTime = () => {
           slotProps={{
             tooltip: {
               sx: {
-                bgcolor: "#fff",
-                color: "#222",
+                bgcolor: darkTokens.background.elevated,
+                color: darkTokens.text.primary,
                 fontSize: 12,
-                boxShadow:
-                  "0 2px 6px 0 rgba(0, 0, 0, .12), 0 6px 12px 0 rgba(55, 55, 55, .08)",
+                boxShadow: darkTokens.overlay.shadowTooltip,
               },
             },
           }}
@@ -365,14 +338,15 @@ const AgentProductivityOverTime = () => {
               position: "absolute",
               top: 8,
               right: 8,
+              color: darkTokens.text.secondary,
             }}
           >
-            <InfoOutlinedIcon fontSize="small" color="action" />
+            <InfoOutlinedIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Box>
 
-      <Divider />
+      <Divider sx={{ borderColor: darkTokens.border.default }} />
 
       <Plot
         data={updatedChartData}

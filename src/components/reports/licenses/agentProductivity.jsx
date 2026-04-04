@@ -9,6 +9,7 @@ import {
   IconButton,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { darkTokens } from "../../../ui/theme";
 
 const dummyAgents = [
   {
@@ -41,7 +42,7 @@ const CircularWithLabel = ({ value, size = 120 }) => {
         size={size}
         thickness={4}
         sx={{
-          color: "#e0e0e0",
+          color: darkTokens.background.muted,
           position: "absolute",
         }}
       />
@@ -53,7 +54,7 @@ const CircularWithLabel = ({ value, size = 120 }) => {
         size={size}
         thickness={4}
         sx={{
-          color: "#1976d2",
+          color: darkTokens.accent.primary,
           "& .MuiCircularProgress-circle": {
             strokeLinecap: "round",
           },
@@ -73,7 +74,11 @@ const CircularWithLabel = ({ value, size = 120 }) => {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography
+          variant="h6"
+          fontWeight={550}
+          sx={{ color: darkTokens.text.primary }}
+        >
           {value}%
         </Typography>
       </Box>
@@ -89,7 +94,13 @@ const AgentProductivity = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ mt: 3, borderRadius: 0, position: "relative" }}
+      sx={{
+        mt: 3,
+        borderRadius: "4px",
+        position: "relative",
+        backgroundColor: darkTokens.background.surface,
+        borderColor: darkTokens.border.default,
+      }}
     >
       {/* Header */}
       <Box
@@ -99,7 +110,11 @@ const AgentProductivity = () => {
           p: 2,
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography
+          variant="h6"
+          fontWeight={550}
+          sx={{ color: darkTokens.text.primary }}
+        >
           Agent productivity
         </Typography>
         <Tooltip
@@ -108,11 +123,10 @@ const AgentProductivity = () => {
           slotProps={{
             tooltip: {
               sx: {
-                bgcolor: "#fff",
-                color: "#222",
+                bgcolor: darkTokens.background.elevated,
+                color: darkTokens.text.primary,
                 fontSize: 12,
-                boxShadow:
-                  "0 2px 6px 0 rgba(0, 0, 0, .12), 0 6px 12px 0 rgba(55, 55, 55, .08)",
+                boxShadow: darkTokens.overlay.shadowTooltip,
               },
             },
           }}
@@ -123,14 +137,15 @@ const AgentProductivity = () => {
               position: "absolute",
               top: 8,
               right: 8,
+              color: darkTokens.text.secondary,
             }}
           >
-            <InfoOutlinedIcon fontSize="small" color="action" />
+            <InfoOutlinedIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Box>
 
-      <Divider />
+      <Divider sx={{ borderColor: darkTokens.border.default }} />
 
       {/* Two Column Layout */}
       <Grid container>
@@ -145,12 +160,12 @@ const AgentProductivity = () => {
             justifyContent: "center",
             minWidth: "50%",
             p: 4,
-            borderRight: { md: "1px solid #eee" },
+            borderRight: { md: `1px solid ${darkTokens.border.strong}` },
           }}
         >
           <Box textAlign="center">
             <CircularWithLabel value={Math.round(generalProductivity)} />
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            <Typography variant="body2" sx={{ mt: 2, color: darkTokens.text.secondary }}>
               General Agent productivity
             </Typography>
           </Box>
@@ -176,24 +191,27 @@ const AgentProductivity = () => {
               key={agent.id}
               sx={{
                 width: "85%",
-                border: "1px solid #e0e0e0",
+                border: `1px solid ${darkTokens.border.subtle}`,
                 borderRadius: 2,
                 p: 2,
                 mb: 2,
+                backgroundColor: darkTokens.background.app,
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 "&:hover": {
-                  backgroundColor: "#f5f5f5",
+                  backgroundColor: darkTokens.background.hoverSoft,
                 },
               }}
             >
               <Box>
-                <Typography fontWeight={600}>{agent.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography fontWeight={550} sx={{ color: darkTokens.text.primary }}>
+                  {agent.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
                   Productivity
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" sx={{ color: darkTokens.text.muted }}>
                   License: {agent.license}
                 </Typography>
               </Box>

@@ -26,6 +26,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
+import { darkTokens } from "./theme";
 
 type OwnerState = {
   expanded: boolean;
@@ -41,10 +42,15 @@ const StyledToolbarButton = styled(ToolbarButton)<{ ownerState: OwnerState }>(
     gridArea: "1 / 1",
     width: "min-content",
     height: "min-content",
+    borderRadius: 4,
+    color: darkTokens.text.secondary,
     zIndex: 1,
     opacity: ownerState.expanded ? 0 : 1,
     pointerEvents: ownerState.expanded ? "none" : "auto",
     transition: theme.transitions.create(["opacity"]),
+    "&:hover": {
+      backgroundColor: darkTokens.overlay.hover,
+    },
   })
 );
 
@@ -56,6 +62,23 @@ const StyledTextField = styled(TextField)<{
   width: ownerState.expanded ? 260 : "var(--trigger-width)",
   opacity: ownerState.expanded ? 1 : 0,
   transition: theme.transitions.create(["width", "opacity"]),
+  "& .MuiInputBase-root": {
+    color: darkTokens.text.primary,
+    backgroundColor: darkTokens.background.app,
+  },
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: darkTokens.border.default,
+  },
+  "& .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: darkTokens.text.secondary,
+  },
+  "& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: darkTokens.accent.primary,
+  },
+  "& .MuiInputBase-input::placeholder": {
+    color: darkTokens.text.secondary,
+    opacity: 1,
+  },
 }));
 
 const CustomToolbar = () => {
@@ -63,27 +86,63 @@ const CustomToolbar = () => {
   const exportMenuTriggerRef = React.useRef<HTMLButtonElement>(null);
 
   return (
-    <Toolbar>
-      <Typography fontWeight="medium" sx={{ flex: 1, mx: 0.5 }}>
+    <Toolbar style={{ color: darkTokens.text.secondary }}>
+      <Typography
+        fontWeight={550}
+        sx={{ flex: 1, mx: 0.5, color: darkTokens.text.primary }}
+      >
         Toolbar
       </Typography>
 
-      <Tooltip title="Columns">
-        <ColumnsPanelTrigger render={<ToolbarButton />}>
-          <ViewColumnIcon fontSize="small" />
+      <Tooltip
+        title="Columns"
+        slotProps={{
+          tooltip: {
+            sx: {
+              bgcolor: darkTokens.background.elevated,
+              color: darkTokens.text.primary,
+              border: `1px solid ${darkTokens.border.default}`,
+            },
+          },
+        }}
+      >
+        <ColumnsPanelTrigger
+          render={
+            <ToolbarButton material={{ sx: { color: darkTokens.text.secondary } }} />
+          }
+        >
+          <ViewColumnIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
         </ColumnsPanelTrigger>
       </Tooltip>
 
-      <Tooltip title="Filters">
+      <Tooltip
+        title="Filters"
+        slotProps={{
+          tooltip: {
+            sx: {
+              bgcolor: darkTokens.background.elevated,
+              color: darkTokens.text.primary,
+              border: `1px solid ${darkTokens.border.default}`,
+            },
+          },
+        }}
+      >
         <FilterPanelTrigger
           render={(props, state) => (
-            <ToolbarButton {...props} color="default">
+            <ToolbarButton
+              {...props}
+              color="default"
+              material={{ sx: { color: darkTokens.text.secondary } }}
+            >
               <Badge
                 badgeContent={state.filterCount}
                 color="primary"
                 variant="dot"
               >
-                <FilterListIcon fontSize="small" />
+                <FilterListIcon
+                  fontSize="small"
+                  sx={{ color: darkTokens.text.secondary }}
+                />
               </Badge>
             </ToolbarButton>
           )}
@@ -94,10 +153,21 @@ const CustomToolbar = () => {
         orientation="vertical"
         variant="middle"
         flexItem
-        sx={{ mx: 0.5 }}
+        sx={{ mx: 0.5, borderColor: darkTokens.border.default }}
       />
 
-      <Tooltip title="Export">
+      <Tooltip
+        title="Export"
+        slotProps={{
+          tooltip: {
+            sx: {
+              bgcolor: darkTokens.background.elevated,
+              color: darkTokens.text.primary,
+              border: `1px solid ${darkTokens.border.default}`,
+            },
+          },
+        }}
+      >
         <ToolbarButton
           ref={exportMenuTriggerRef}
           id="export-menu-trigger"
@@ -105,8 +175,12 @@ const CustomToolbar = () => {
           aria-haspopup="true"
           aria-expanded={exportMenuOpen ? "true" : undefined}
           onClick={() => setExportMenuOpen(true)}
+          material={{ sx: { color: darkTokens.text.secondary } }}
         >
-          <FileDownloadIcon fontSize="small" />
+          <FileDownloadIcon
+            fontSize="small"
+            sx={{ color: darkTokens.text.secondary }}
+          />
         </ToolbarButton>
       </Tooltip>
 
@@ -120,17 +194,31 @@ const CustomToolbar = () => {
         slotProps={{
           list: {
             "aria-labelledby": "export-menu-trigger",
+            sx: {
+              backgroundColor: darkTokens.background.surface,
+              color: darkTokens.text.primary,
+            },
+          },
+          paper: {
+            sx: {
+              backgroundColor: darkTokens.background.surface,
+              border: `1px solid ${darkTokens.border.default}`,
+            },
           },
         }}
       >
         <ExportPrint
-          render={<MenuItem />}
+          render={
+            <MenuItem sx={{ color: darkTokens.text.primary, fontSize: 13 }} />
+          }
           onClick={() => setExportMenuOpen(false)}
         >
           Print
         </ExportPrint>
         <ExportCsv
-          render={<MenuItem />}
+          render={
+            <MenuItem sx={{ color: darkTokens.text.primary, fontSize: 13 }} />
+          }
           onClick={() => setExportMenuOpen(false)}
         >
           Download as CSV
@@ -140,14 +228,29 @@ const CustomToolbar = () => {
       <StyledQuickFilter>
         <QuickFilterTrigger
           render={(triggerProps, state) => (
-            <Tooltip title="Search" enterDelay={0}>
+            <Tooltip
+              title="Search"
+              enterDelay={0}
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    bgcolor: darkTokens.background.elevated,
+                    color: darkTokens.text.primary,
+                    border: `1px solid ${darkTokens.border.default}`,
+                  },
+                },
+              }}
+            >
               <StyledToolbarButton
                 {...triggerProps}
                 ownerState={{ expanded: state.expanded }}
                 color="default"
                 aria-disabled={state.expanded}
               >
-                <SearchIcon fontSize="small" />
+                <SearchIcon
+                  fontSize="small"
+                  sx={{ color: darkTokens.text.secondary }}
+                />
               </StyledToolbarButton>
             </Tooltip>
           )}
@@ -165,7 +268,10 @@ const CustomToolbar = () => {
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon fontSize="small" />
+                      <SearchIcon
+                        fontSize="small"
+                        sx={{ color: darkTokens.text.secondary }}
+                      />
                     </InputAdornment>
                   ),
                   endAdornment: state.value ? (
@@ -176,7 +282,10 @@ const CustomToolbar = () => {
                         aria-label="Clear search"
                         material={{ sx: { marginRight: -0.75 } }}
                       >
-                        <CancelIcon fontSize="small" />
+                        <CancelIcon
+                          fontSize="small"
+                          sx={{ color: darkTokens.text.secondary }}
+                        />
                       </QuickFilterClear>
                     </InputAdornment>
                   ) : null,
@@ -199,7 +308,55 @@ export const DataTable = (props: DataTableProps) => {
     <div style={{ height: "683px", width: "100%" }}>
       <DataGrid
         {...props}
-        sx={{ backgroundColor: "#fff" }}
+        sx={{
+          backgroundColor: darkTokens.background.surface,
+          color: darkTokens.text.primary,
+          borderColor: darkTokens.border.default,
+          borderRadius: "4px",
+          "& .MuiDataGrid-topContainer": {
+            backgroundColor: darkTokens.background.surface,
+          },
+          "& .MuiDataGrid-toolbarContainer": {
+            borderBottom: `1px solid ${darkTokens.border.strong}`,
+            minHeight: "40px",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: darkTokens.background.surface,
+            borderBottom: `1px solid ${darkTokens.border.strong}`,
+          },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            color: darkTokens.text.secondary,
+            fontWeight: 550,
+            fontSize: "13px",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: `1px solid ${darkTokens.border.strong}`,
+            color: darkTokens.text.primary,
+            fontSize: "13px",
+          },
+          "& .MuiDataGrid-row:hover": {
+            backgroundColor: darkTokens.overlay.rowHover,
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: `1px solid ${darkTokens.border.strong}`,
+            color: darkTokens.text.secondary,
+          },
+          "& .MuiTablePagination-root, & .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows, & .MuiTablePagination-selectIcon":
+            {
+              color: darkTokens.text.secondary,
+            },
+          "& .MuiDataGrid-menuIconButton, & .MuiDataGrid-sortIcon, & .MuiIconButton-root":
+            {
+              color: darkTokens.text.secondary,
+            },
+          "& .MuiCheckbox-root": {
+            color: darkTokens.text.secondary,
+          },
+          "& .MuiDataGrid-overlay": {
+            backgroundColor: darkTokens.background.surface,
+            color: darkTokens.text.secondary,
+          },
+        }}
         slots={{ toolbar: CustomToolbar }}
         initialState={{
           pagination: { paginationModel: { pageSize: 10, page: 0 } },
