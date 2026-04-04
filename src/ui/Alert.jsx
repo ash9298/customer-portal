@@ -22,6 +22,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { styled } from "@mui/material/styles";
 import { darkTokens } from "./theme";
 
+const alertBackgrounds = {
+  surface: "#2a2a2a",
+  app: "#202020",
+  warningSoft: "rgba(255, 177, 20, 0.08)",
+  danger: "rgba(216, 51, 41, 0.2)",
+};
+
 // Option 1: Alert-style component
 export const LicenseNoteAlert = () => {
   const [open, setOpen] = React.useState(true);
@@ -41,7 +48,7 @@ export const LicenseNoteAlert = () => {
         mb: 3,
         borderRadius: 1,
         border: `1px solid ${darkTokens.border.default}`,
-        backgroundColor: darkTokens.background.surface,
+        backgroundColor: alertBackgrounds.surface,
         color: darkTokens.text.primary,
         "& .MuiAlert-message": { width: "100%" },
         "& .MuiAlert-icon": { color: darkTokens.status.warning },
@@ -110,7 +117,7 @@ export const LicenseNoteAlert = () => {
           mt: 1.5,
           borderRadius: 1,
           border: `1px solid ${darkTokens.status.dangerBorder}`,
-          backgroundColor: darkTokens.status.dangerBg,
+          backgroundColor: alertBackgrounds.danger,
           color: darkTokens.text.primary,
           "& .MuiAlert-icon": { color: darkTokens.status.dangerSoft },
         }}
@@ -139,7 +146,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   borderLeft: `4px solid ${darkTokens.status.warning}`,
   border: `1px solid ${darkTokens.border.default}`,
-  backgroundColor: darkTokens.background.surface,
+  backgroundColor: alertBackgrounds.surface,
   color: darkTokens.text.primary,
   position: "relative",
   overflow: "hidden",
@@ -213,7 +220,7 @@ export const LicenseNotePaper = () => {
             sx={{
               p: 1.5,
               borderRadius: 1,
-              bgcolor: darkTokens.background.app,
+              bgcolor: alertBackgrounds.app,
               border: `1px solid ${darkTokens.border.subtle}`,
               flex: 1,
               minWidth: 200,
@@ -233,7 +240,7 @@ export const LicenseNotePaper = () => {
             sx={{
               p: 1.5,
               borderRadius: 1,
-              bgcolor: darkTokens.background.app,
+              bgcolor: alertBackgrounds.app,
               border: `1px solid ${darkTokens.border.subtle}`,
               flex: 1,
               minWidth: 200,
@@ -256,7 +263,7 @@ export const LicenseNotePaper = () => {
         sx={{
           p: 2,
           borderRadius: 1,
-          bgcolor: darkTokens.status.dangerBg,
+          bgcolor: alertBackgrounds.danger,
           border: "1px solid",
           borderColor: darkTokens.status.dangerBorder,
           mb: 2,
@@ -304,7 +311,7 @@ export const LicenseNoteCompact = () => {
         borderRadius: "4px",
         alignItems: "center",
         border: `1px solid ${darkTokens.status.warningBg}`,
-        background: darkTokens.status.warningBgSoft,
+        background: alertBackgrounds.warningSoft,
         marginBottom: "20px",
         "& .MuiAlert-icon": {
           color: darkTokens.status.warning,

@@ -3,6 +3,9 @@ import Plot from "react-plotly.js";
 import { Card, Box } from "@mui/material";
 import { darkTokens } from "../../../ui/theme";
 
+const ACTIVE_USERS_COLOR = "#2563eb";
+const TOTAL_USERS_COLOR = "#dc2626";
+
 const UserActivityChart = () => {
   const chartRef = useRef(null);
   const [chartHeight, setChartHeight] = useState(400);
@@ -84,7 +87,7 @@ const UserActivityChart = () => {
       type: "bar",
       name: "Active User",
       marker: {
-        color: darkTokens.accent.primary,
+        color: ACTIVE_USERS_COLOR,
       },
       yaxis: "y",
       hovertemplate: "Date: %{x}<br>Active Users: %{y}<extra></extra>",
@@ -96,11 +99,11 @@ const UserActivityChart = () => {
       mode: "lines+markers",
       name: "Total User",
       line: {
-        color: darkTokens.status.danger,
+        color: TOTAL_USERS_COLOR,
         width: 2,
       },
       marker: {
-        color: darkTokens.status.danger,
+        color: TOTAL_USERS_COLOR,
         size: 4,
       },
       yaxis: "y",

@@ -10,6 +10,15 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
+
+const ORIGINAL_SERIES_COLORS = [
+  "#2563eb",
+  "#dc2626",
+  "#f59e0b",
+  "#10b981",
+  "#8b5cf6",
+  "#ec4899",
+];
 const AgentProductivityOverTime = () => {
   // Your provided data
   const chartData = [
@@ -30,8 +39,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.accent.primary, width: 2 },
-      marker: { color: darkTokens.accent.primary, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[0], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[0], size: 6 },
     },
     {
       x: [
@@ -50,8 +59,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.status.danger, width: 2 },
-      marker: { color: darkTokens.status.danger, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[1], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[1], size: 6 },
     },
     {
       x: [
@@ -70,8 +79,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.status.warning, width: 2 },
-      marker: { color: darkTokens.status.warning, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[2], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[2], size: 6 },
     },
     {
       x: [
@@ -90,8 +99,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.status.success, width: 2 },
-      marker: { color: darkTokens.status.success, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[3], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[3], size: 6 },
     },
     {
       x: [
@@ -110,8 +119,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.accent.purple, width: 2 },
-      marker: { color: darkTokens.accent.purple, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[4], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[4], size: 6 },
     },
     {
       x: [
@@ -130,8 +139,8 @@ const AgentProductivityOverTime = () => {
       type: "scatter",
       hovertemplate:
         "Date: %{x|%Y-%m-%d %H:%M:%S}<br>Run time: %{y} Min<br>License ID: 1736246628863999<extra></extra>",
-      line: { color: darkTokens.accent.sky, width: 2 },
-      marker: { color: darkTokens.accent.sky, size: 6 },
+      line: { color: ORIGINAL_SERIES_COLORS[5], width: 2 },
+      marker: { color: ORIGINAL_SERIES_COLORS[5], size: 6 },
     },
   ];
 
@@ -146,14 +155,7 @@ const AgentProductivityOverTime = () => {
     chartData[0]?.x.map((date) => formatDateForAxis(date)) || [];
 
   // Customize colors for each agent
-  const colors = [
-    darkTokens.accent.primary,
-    darkTokens.status.danger,
-    darkTokens.status.warning,
-    darkTokens.status.success,
-    darkTokens.accent.purple,
-    darkTokens.accent.sky,
-  ];
+  const colors = ORIGINAL_SERIES_COLORS;
 
   // Update each trace with custom colors
   const updatedChartData = chartData.map((trace, index) => ({

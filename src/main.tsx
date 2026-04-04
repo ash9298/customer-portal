@@ -2,14 +2,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { MsalProvider } from "@azure/msal-react";
-import theme from "./ui/theme.ts";
+import { createAppTheme } from "./ui/theme.ts";
 import App from "./App.jsx";
 import { msalInstance } from "./auth/msalConfig";
+import { getConfiguredThemeMode } from "./config/theme.config";
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
   throw new Error("Root element not found");
 }
+
+const appTheme = createAppTheme(getConfiguredThemeMode());
 
 msalInstance
   .initialize()
@@ -26,7 +29,7 @@ msalInstance
 
     createRoot(rootEl).render(
       <StrictMode>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={appTheme}>
           <CssBaseline />
           <MsalProvider instance={msalInstance}>
             <App />

@@ -68,16 +68,16 @@ const licenseOverviewData = [
 ];
 
 const getProgressStyles = (used, total) => {
-  let fill = darkTokens.accent.primary;
+  let fill = "#1976d2";
 
-  if (used > total) fill = darkTokens.status.successLight;
-  if (used === 0) fill = darkTokens.status.danger;
+  if (used > total) fill = "#2e7d32";
+  if (used === 0) fill = "#d32f2f";
 
   return {
     height: 8,
     borderRadius: 5,
     mb: 0.5,
-    backgroundColor: darkTokens.background.muted,
+    backgroundColor: "#e0e0e0",
     "& .MuiLinearProgress-bar": {
       backgroundColor: fill,
     },
@@ -94,8 +94,8 @@ const getEvolutionChip = (value) => {
       size="small"
       sx={{
         fontWeight: 550,
-        backgroundColor: darkTokens.accent.soft,
-        color: isPositive || isNegative ? darkTokens.accent.info : darkTokens.text.primary,
+        backgroundColor: "#e3f2fd",
+        color: isPositive || isNegative ? "#1565c0" : darkTokens.text.primary,
       }}
     />
   );

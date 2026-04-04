@@ -42,7 +42,7 @@ const CircularWithLabel = ({ value, size = 120 }) => {
         size={size}
         thickness={4}
         sx={{
-          color: darkTokens.background.muted,
+          color: "#e0e0e0",
           position: "absolute",
         }}
       />
@@ -54,7 +54,7 @@ const CircularWithLabel = ({ value, size = 120 }) => {
         size={size}
         thickness={4}
         sx={{
-          color: darkTokens.accent.primary,
+          color: "#1976d2",
           "& .MuiCircularProgress-circle": {
             strokeLinecap: "round",
           },
