@@ -11,8 +11,9 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const isStoreAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+  const isStoreLoading = useSelector((state: RootState) => state.auth.loading);
 
-  if (inProgress !== InteractionStatus.None) {
+  if (inProgress !== InteractionStatus.None || isStoreLoading) {
     return (
       <Box
         sx={{

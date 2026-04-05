@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -25,14 +26,30 @@ import {
   KeyboardArrowDown,
 } from "@mui/icons-material";
 import { useMsal } from "@azure/msal-react";
-import { type RootState } from "../../store";
+import { isMsalConfigured } from "../../auth/msalConfig";
+import api from "../../api";
+import { logout } from "../../store/authSlice";
+import { type AppDispatch, type RootState } from "../../store";
 import { darkTokens } from "../../ui/theme";
 
 const Footer = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { instance } = useMsal();
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const displayName =
+    user?.name?.trim() ||
+    [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim() ||
+    (user?.email ? user.email.split("@")[0] : "Guest User");
+  const initials =
+    displayName
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? "")
+      .join("") || "GU";
 
   const toggleResources = () => {
     setResourcesOpen(!resourcesOpen);
@@ -42,10 +59,24 @@ const Footer = () => {
     setUserOpen(!userOpen);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setUserOpen(false);
+    dispatch(logout());
+
+    try {
+      await api.post("/logout", {}, { withCredentials: true });
+    } catch (error) {
+      console.warn("Logout API call failed:", error);
+    }
+
     instance.setActiveAccount(null);
-    instance.logoutRedirect();
+
+    if (isMsalConfigured) {
+      await instance.logoutRedirect();
+      return;
+    }
+
+    navigate("/login", { replace: true });
   };
 
   const knowledgeResources = [
@@ -188,11 +219,7 @@ const Footer = () => {
               fontWeight: 550,
             }}
           >
-            {user
-              ? `${user.firstName?.charAt(0)}${user.lastName?.charAt(
-                  0,
-                )}`.toUpperCase()
-              : "AG"}
+            {initials}
           </Avatar>
           <Box>
             <Typography
@@ -201,7 +228,7 @@ const Footer = () => {
               fontSize="13px"
               color={darkTokens.text.primary}
             >
-              {user ? `${user.firstName} ${user.lastName}` : "Ashish Gupta"}
+              {displayName}
             </Typography>
             <Typography
               variant="caption"
