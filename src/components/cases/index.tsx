@@ -456,12 +456,21 @@ const CASES = [
   },
 ];
 
+type CaseItem = (typeof CASES)[number];
+type CaseStatusKey =
+  | "New"
+  | "Open"
+  | "Pending from Agent"
+  | "Pending from Customer"
+  | "On Hold"
+  | "Closed";
+
 const Cases = () => {
-  const [cases, setCases] = useState(CASES);
+  const [cases, setCases] = useState<CaseItem[]>(CASES);
 
   useEffect(() => {
     const processCases = () => {
-      const statusOrder = {
+      const statusOrder: Record<CaseStatusKey, number> = {
         New: 1,
         Open: 2,
         "Pending from Agent": 3,
@@ -472,18 +481,20 @@ const Cases = () => {
 
       const closedCutoffDate = new Date("2024-06-29");
 
-      const sortCases = (a, b) => {
-        const dateA = new Date(a.LastModifiedDate);
-        const dateB = new Date(b.LastModifiedDate);
+      const sortCases = (a: CaseItem, b: CaseItem) => {
+        const dateA = new Date(a.LastModifiedDate).getTime();
+        const dateB = new Date(b.LastModifiedDate).getTime();
 
         if (dateB - dateA !== 0) {
           return dateB - dateA;
         }
 
-        return (
-          statusOrder[a.Status] - statusOrder[b.Status] ||
-          b.Id.localeCompare(a.Id)
-        );
+        const statusA =
+          statusOrder[a.Status as CaseStatusKey] ?? Number.MAX_SAFE_INTEGER;
+        const statusB =
+          statusOrder[b.Status as CaseStatusKey] ?? Number.MAX_SAFE_INTEGER;
+
+        return statusA - statusB || b.Id.localeCompare(a.Id);
       };
 
       const nonClosedCases = CASES.filter((c) => c.Status !== "Closed").sort(

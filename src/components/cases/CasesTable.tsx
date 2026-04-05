@@ -5,6 +5,34 @@ import { DataTable } from "../../ui/DataTable";
 import { darkTokens } from "../../ui/theme";
 import { commonSx } from "../../ui/styles/commonSx";
 
+type CaseRecord = {
+  Id: string;
+  CaseNumber: string;
+  Subject: string;
+  Description: string;
+  Status: string;
+  Owner: { Name: string };
+  Created_Date_Time__c: string;
+  LastModifiedDate: string;
+  Contact: { Name: string };
+  ContactEmail: string;
+};
+
+type CaseRow = {
+  id: string;
+  CaseNumber: string;
+  Subject: string;
+  Desc: string;
+  Status: string;
+  CaseOwner: string;
+  CreatedAt: string;
+  CreatedBy: {
+    name: string;
+    email: string;
+  };
+  LastUpdated: string;
+};
+
 const casesSx = {
   cellContainer: {
     height: "100%",
@@ -48,7 +76,7 @@ const casesSx = {
   },
 };
 
-const formatUTCDate = (date) => {
+const formatUTCDate = (date: string | null | undefined) => {
   if (!date) return "-";
 
   const normalizedDate = date.replace("+0000", "Z");
@@ -69,8 +97,8 @@ const columns = [
     field: "Desc",
     headerName: "Description",
     flex: 3,
-    renderCell: (params) => {
-      const value = params.value || "-";
+    renderCell: (params: { value?: string }) => {
+      const value = params.value ?? "-";
 
       return (
         <Tooltip title={value} placement="top-start" disableInteractive>
@@ -88,9 +116,9 @@ const columns = [
     field: "Status",
     headerName: "Status",
     flex: 1,
-    renderCell: (params) => (
+    renderCell: (params: { value?: string }) => (
       <Chip
-        label={params.value}
+        label={params.value ?? ""}
         size="small"
         sx={casesSx.statusChip}
       />
@@ -101,12 +129,13 @@ const columns = [
     field: "CaseOwner",
     headerName: "Case owner",
     flex: 2,
-    renderCell: (params) => {
-      const initials = params.value
-        ? params.value
+    renderCell: (params: { value?: string }) => {
+      const ownerName = params.value ?? "";
+      const initials = ownerName
+        ? ownerName
             .split(" ")
             .slice(0, 2)
-            .map((n) => n[0])
+            .map((n: string) => n[0])
             .join("")
             .toUpperCase()
         : "";
@@ -117,7 +146,7 @@ const columns = [
               {initials}
             </Avatar>
             <Typography variant="body2" sx={commonSx.panelTitle}>
-              {params.value}
+              {ownerName}
             </Typography>
           </Stack>
         </Box>
@@ -135,14 +164,14 @@ const columns = [
     field: "CreatedBy",
     headerName: "Created by",
     flex: 2,
-    renderCell: (params) => {
-      const { name, email } = params.value;
+    renderCell: (params: { value?: CaseRow["CreatedBy"] }) => {
+      const { name, email } = params.value ?? { name: "", email: "" };
 
       const initials = name
         ? name
             .split(" ")
             .slice(0, 2)
-            .map((n) => n[0])
+            .map((n: string) => n[0])
             .join("")
             .toUpperCase()
         : "";
@@ -181,18 +210,22 @@ const columns = [
   },
 ];
 
-const Cases = ({ cases }) => {
-  const rows = cases.map((caseItem) => ({
+type CasesProps = {
+  cases: CaseRecord[];
+};
+
+const Cases = ({ cases }: CasesProps) => {
+  const rows: CaseRow[] = cases.map((caseItem) => ({
     id: caseItem.Id,
     CaseNumber: caseItem.CaseNumber,
     Subject: caseItem.Subject,
     Desc: caseItem.Description,
     Status: caseItem.Status,
-    CaseOwner: caseItem.Owner.Name,
+    CaseOwner: caseItem.Owner?.Name ?? "",
     CreatedAt: formatUTCDate(caseItem.Created_Date_Time__c),
     CreatedBy: {
-      name: caseItem.Contact.Name,
-      email: caseItem.ContactEmail,
+      name: caseItem.Contact?.Name ?? "",
+      email: caseItem.ContactEmail ?? "",
     },
     LastUpdated: formatUTCDate(caseItem.LastModifiedDate),
   }));

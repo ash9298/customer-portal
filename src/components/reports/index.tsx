@@ -1,4 +1,5 @@
 import { Box, Tabs, Tab, Divider } from "@mui/material";
+import type { SyntheticEvent } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { darkTokens } from "../../ui/theme";
 
@@ -11,7 +12,7 @@ const Report = () => {
 
   const tabIndex = currentTab === -1 ? 0 : currentTab;
 
-  const handleChange = (_, newValue) => {
+  const handleChange = (_: SyntheticEvent, newValue: number) => {
     navigate(`/dashboard/reports/${tabMap[newValue]}`);
   };
 

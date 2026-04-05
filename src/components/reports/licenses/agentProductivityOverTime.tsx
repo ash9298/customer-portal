@@ -1,4 +1,3 @@
-import React from "react";
 import Plot from "react-plotly.js";
 import {
   Box,
@@ -145,7 +144,7 @@ const AgentProductivityOverTime = () => {
   ];
 
   // Format dates for x-axis (e.g., "Feb 17")
-  const formatDateForAxis = (dateString) => {
+  const formatDateForAxis = (dateString: string) => {
     const d = new Date(dateString);
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };

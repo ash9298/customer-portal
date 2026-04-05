@@ -3,11 +3,11 @@ import {
   Box,
   Typography,
   Divider,
-  Grid,
   CircularProgress,
   Tooltip,
   IconButton,
 } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
@@ -35,9 +35,9 @@ const dummyAgents = [
 
 const agentProductivitySx = {
   circularWrap: { position: "relative", display: "inline-flex" },
-  circularTrack: { color: "#e0e0e0", position: "absolute" },
+  circularTrack: { color: darkTokens.background.muted, position: "absolute" },
   circularProgress: {
-    color: "#1976d2",
+    color: darkTokens.accent.primary,
     "& .MuiCircularProgress-circle": {
       strokeLinecap: "round",
     },
@@ -62,36 +62,42 @@ const agentProductivitySx = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minWidth: "50%",
-    p: 4,
+    p: { xs: 3, md: 4 },
     borderRight: { md: `1px solid ${darkTokens.border.strong}` },
+    borderBottom: { xs: `1px solid ${darkTokens.border.strong}`, md: "none" },
   },
   rightColumn: {
-    p: 3,
+    p: { xs: 2, md: 3 },
     maxHeight: 350,
     overflowY: "auto",
     display: "flex",
-    minWidth: "50%",
     flexDirection: "column",
-    alignItems: "flex-end",
+    alignItems: "stretch",
+    gap: 1.5,
   },
   agentCard: {
-    width: "85%",
+    width: "100%",
     border: `1px solid ${darkTokens.border.subtle}`,
     borderRadius: 2,
     p: 2,
-    mb: 2,
+    mb: 0,
     backgroundColor: darkTokens.background.app,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: 2,
     "&:hover": {
       backgroundColor: darkTokens.background.hoverSoft,
     },
   },
 };
 
-const CircularWithLabel = ({ value, size = 120 }) => {
+type CircularWithLabelProps = {
+  value: number;
+  size?: number;
+};
+
+const CircularWithLabel = ({ value, size = 120 }: CircularWithLabelProps) => {
   return (
     <Box sx={agentProductivitySx.circularWrap}>
       {/* Background Track */}
@@ -160,7 +166,7 @@ const AgentProductivity = () => {
       <Divider sx={commonSx.divider} />
 
       {/* Two Column Layout */}
-      <Grid container>
+      <Grid container alignItems="stretch">
         {/* LEFT COLUMN */}
         <Grid item xs={12} md={5} sx={agentProductivitySx.leftColumn}>
           <Box textAlign="center">

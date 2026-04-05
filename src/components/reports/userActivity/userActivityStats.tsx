@@ -1,11 +1,11 @@
 import {
   Box,
   Typography,
-  Grid,
   Card,
   Tooltip,
   IconButton,
 } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";

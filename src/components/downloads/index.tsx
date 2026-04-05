@@ -1,5 +1,4 @@
 import {
-  Grid,
   Card,
   CardContent,
   CardActions,
@@ -8,6 +7,7 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import { PrimaryButton, SecondaryButton } from "../../ui/Button";
 import AlertBox from "../../ui/Alert";
 import { darkTokens } from "../../ui/theme";
@@ -16,13 +16,31 @@ import { commonSx } from "../../ui/styles/commonSx";
 const downloadSx = {
   intro: { fontSize: "14px", mb: 2, color: darkTokens.text.secondary },
   heading: { color: darkTokens.text.primary, fontWeight: 550 },
-  gridWrap: { display: "flex", flexWrap: "nowrap" },
-  leftCol: { maxWidth: "450px" },
-  utilityStack: { display: "flex", flexDirection: "row", gap: 1 },
+  gridWrap: { alignItems: "flex-start" },
+  leftCol: { width: "100%", maxWidth: { md: "520px" } },
+  rightCol: { minWidth: 0 },
+  stableCard: { width: "100%", maxWidth: { md: "520px" } },
+  utilityStack: {
+    display: "flex",
+    flexDirection: { xs: "column", lg: "row" },
+    gap: 2,
+    alignItems: "stretch",
+  },
   card: {
     ...commonSx.panelCard,
     borderRadius: 1,
     color: darkTokens.text.primary,
+  },
+  utilityCard: {
+    ...commonSx.panelCard,
+    borderRadius: 1,
+    color: darkTokens.text.primary,
+    width: "100%",
+    minWidth: 0,
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   serviceChip: {
     width: "fit-content",
@@ -59,7 +77,7 @@ const Download = () => {
             Stable releases
           </Typography>
 
-          <Card variant="outlined" sx={downloadSx.card}>
+          <Card variant="outlined" sx={{ ...downloadSx.card, ...downloadSx.stableCard }}>
             <CardContent>
               <Stack spacing={1}>
                 <Chip
@@ -112,7 +130,7 @@ const Download = () => {
         </Grid>
 
         {/* RIGHT COLUMN – Leapwork Studio Utilities */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={downloadSx.rightCol}>
           <Typography
             variant="h6"
             gutterBottom
@@ -126,9 +144,7 @@ const Download = () => {
             <Card
               variant="outlined"
               sx={{
-                maxWidth: "450px",
-                ...downloadSx.card,
-                color: darkTokens.text.primary,
+                ...downloadSx.utilityCard,
               }}
             >
               <CardContent>
@@ -181,12 +197,7 @@ const Download = () => {
             <Card
               variant="outlined"
               sx={{
-                maxWidth: "450px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                ...downloadSx.card,
-                color: darkTokens.text.primary,
+                ...downloadSx.utilityCard,
               }}
             >
               <CardContent>

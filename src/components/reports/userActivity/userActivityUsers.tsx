@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import {
-  Grid,
   Box,
   Typography,
   Card,
@@ -17,11 +16,21 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
+import Grid from "@mui/material/GridLegacy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
 
-const activeUsers = [
+type UserRow = {
+  Id: string;
+  User: string;
+  "Last Active Date": string;
+};
+
+type SortKey = "User" | "Last Active Date";
+type SortDirection = "asc" | "desc";
+
+const activeUsers: UserRow[] = [
   {
     Id: "1977216E-CA03-447C-AA19-1CF5E98FE7FA",
     User: "chsh",
@@ -64,7 +73,7 @@ const activeUsers = [
   },
 ];
 
-const inactivUsers = [
+const inactivUsers: UserRow[] = [
   {
     Id: "8D234DCF-64BA-4894-896B-00E74E580038",
     User: "gau",
@@ -152,7 +161,7 @@ const userActivityUsersSx = {
 };
 
 // Function to format date
-const formatDate = (dateString) => {
+const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
     month: "short",
@@ -162,28 +171,28 @@ const formatDate = (dateString) => {
 };
 
 // Function to get initials from username
-const getInitials = (username) => {
+const getInitials = (username: string) => {
   return username.charAt(0).toUpperCase();
 };
 
 const UserActivityUsers = () => {
   // State for active users table
-  const [activeOrderBy, setActiveOrderBy] = useState("User");
-  const [activeOrder, setActiveOrder] = useState("asc");
+  const [activeOrderBy, setActiveOrderBy] = useState<SortKey>("User");
+  const [activeOrder, setActiveOrder] = useState<SortDirection>("asc");
 
   // State for inactive users table
-  const [inactiveOrderBy, setInactiveOrderBy] = useState("User");
-  const [inactiveOrder, setInactiveOrder] = useState("asc");
+  const [inactiveOrderBy, setInactiveOrderBy] = useState<SortKey>("User");
+  const [inactiveOrder, setInactiveOrder] = useState<SortDirection>("asc");
 
   // Handle sort for active users
-  const handleActiveSort = (property) => {
+  const handleActiveSort = (property: SortKey) => {
     const isAsc = activeOrderBy === property && activeOrder === "asc";
     setActiveOrder(isAsc ? "desc" : "asc");
     setActiveOrderBy(property);
   };
 
   // Handle sort for inactive users
-  const handleInactiveSort = (property) => {
+  const handleInactiveSort = (property: SortKey) => {
     const isAsc = inactiveOrderBy === property && inactiveOrder === "asc";
     setInactiveOrder(isAsc ? "desc" : "asc");
     setInactiveOrderBy(property);
@@ -192,7 +201,8 @@ const UserActivityUsers = () => {
   // Sort active users
   const sortedActiveUsers = useMemo(() => {
     return [...activeUsers].sort((a, b) => {
-      let valueA, valueB;
+      let valueA: string | number;
+      let valueB: string | number;
 
       if (activeOrderBy === "Last Active Date") {
         valueA = new Date(a[activeOrderBy]).getTime();
@@ -211,7 +221,8 @@ const UserActivityUsers = () => {
   // Sort inactive users
   const sortedInactiveUsers = useMemo(() => {
     return [...inactivUsers].sort((a, b) => {
-      let valueA, valueB;
+      let valueA: string | number;
+      let valueB: string | number;
 
       if (inactiveOrderBy === "Last Active Date") {
         valueA = new Date(a[inactiveOrderBy]).getTime();

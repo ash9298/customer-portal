@@ -1,4 +1,3 @@
-import React from "react";
 import { Typography } from "@mui/material";
 import Report from "../components/reports";
 import { darkTokens } from "../ui/theme";

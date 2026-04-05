@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Plot from "react-plotly.js";
 import { Card, Box } from "@mui/material";
 import { darkTokens } from "../../../ui/theme";
@@ -7,7 +7,7 @@ const ACTIVE_USERS_COLOR = "#2563eb";
 const TOTAL_USERS_COLOR = "#dc2626";
 
 const UserActivityChart = () => {
-  const chartRef = useRef(null);
+  const chartRef = useRef<HTMLDivElement | null>(null);
   const [chartHeight, setChartHeight] = useState(400);
   const [isReady, setIsReady] = useState(false);
 

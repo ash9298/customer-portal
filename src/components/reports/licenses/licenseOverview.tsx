@@ -20,7 +20,28 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
 
-const licenseOverviewData = [
+type LicenseOverviewRow = {
+  license: string;
+  studiosUsed: number;
+  studiosTotal: number;
+  studiosEvol: number;
+  agentsUsed: number;
+  agentsTotal: number;
+  agentsEvol: number;
+};
+
+type SortDirection = "asc" | "desc";
+type SortKey = "license" | "studiosUsed" | "studiosEvol" | "agentsUsed" | "agentsEvol";
+
+const sortableColumns: Array<{ id: SortKey; label: string }> = [
+  { id: "license", label: "Licenses" },
+  { id: "studiosUsed", label: "Studios in use" },
+  { id: "studiosEvol", label: "Studios use evol." },
+  { id: "agentsUsed", label: "Agents in use" },
+  { id: "agentsEvol", label: "Agents use evol." },
+];
+
+const licenseOverviewData: LicenseOverviewRow[] = [
   {
     license: "1731060543330829",
     studiosUsed: 5,
@@ -91,7 +112,7 @@ const licenseOverviewSx = {
   caption: { color: darkTokens.text.secondary },
 };
 
-const getProgressStyles = (used, total) => {
+const getProgressStyles = (used: number, total: number) => {
   let fill = "#1976d2";
 
   if (used > total) fill = "#2e7d32";
@@ -108,7 +129,7 @@ const getProgressStyles = (used, total) => {
   };
 };
 
-const getEvolutionChip = (value) => {
+const getEvolutionChip = (value: number) => {
   const isPositive = value > 0;
   const isNegative = value < 0;
 
@@ -126,15 +147,15 @@ const getEvolutionChip = (value) => {
 };
 
 const LicenseOverview = () => {
-  const [rows, setRows] = useState([]);
-  const [orderBy, setOrderBy] = useState("license");
-  const [order, setOrder] = useState("asc");
+  const [rows, setRows] = useState<LicenseOverviewRow[]>([]);
+  const [orderBy, setOrderBy] = useState<SortKey>("license");
+  const [order, setOrder] = useState<SortDirection>("asc");
 
   useEffect(() => {
     setRows(licenseOverviewData);
   }, []);
 
-  const handleSort = (property) => {
+  const handleSort = (property: SortKey) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
@@ -181,13 +202,7 @@ const LicenseOverview = () => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              {[
-                { id: "license", label: "Licenses" },
-                { id: "studiosUsed", label: "Studios in use" },
-                { id: "studiosEvol", label: "Studios use evol." },
-                { id: "agentsUsed", label: "Agents in use" },
-                { id: "agentsEvol", label: "Agents use evol." },
-              ].map((column) => (
+              {sortableColumns.map((column) => (
                 <TableCell
                   key={column.id}
                   sx={licenseOverviewSx.tableHeaderCell}
