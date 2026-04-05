@@ -2,8 +2,14 @@ import { Box, Tabs, Tab, Divider } from "@mui/material";
 import type { SyntheticEvent } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { darkTokens } from "../../ui/theme";
+import type { ReportTabKey } from "../../types/ui";
 
-const tabMap = ["licenses", "user-activity", "test-results", "leapwork-usage"];
+const tabMap: ReportTabKey[] = [
+  "licenses",
+  "user-activity",
+  "test-results",
+  "leapwork-usage",
+];
 const Report = () => {
   const location = useLocation();
   const navigate = useNavigate();

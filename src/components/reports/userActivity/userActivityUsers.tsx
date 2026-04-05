@@ -20,17 +20,12 @@ import Grid from "@mui/material/GridLegacy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
-
-type UserRow = {
-  Id: string;
-  User: string;
-  "Last Active Date": string;
-};
+import type { SortDirection } from "../../../types/common";
+import type { UserActivityRow } from "../../../types/domain";
 
 type SortKey = "User" | "Last Active Date";
-type SortDirection = "asc" | "desc";
 
-const activeUsers: UserRow[] = [
+const activeUsers: UserActivityRow[] = [
   {
     Id: "1977216E-CA03-447C-AA19-1CF5E98FE7FA",
     User: "chsh",
@@ -73,7 +68,7 @@ const activeUsers: UserRow[] = [
   },
 ];
 
-const inactivUsers: UserRow[] = [
+const inactivUsers: UserActivityRow[] = [
   {
     Id: "8D234DCF-64BA-4894-896B-00E74E580038",
     User: "gau",

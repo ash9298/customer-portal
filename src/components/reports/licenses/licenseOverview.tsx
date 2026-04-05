@@ -19,18 +19,9 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
+import type { SortDirection } from "../../../types/common";
+import type { LicenseOverviewRow } from "../../../types/domain";
 
-type LicenseOverviewRow = {
-  license: string;
-  studiosUsed: number;
-  studiosTotal: number;
-  studiosEvol: number;
-  agentsUsed: number;
-  agentsTotal: number;
-  agentsEvol: number;
-};
-
-type SortDirection = "asc" | "desc";
 type SortKey = "license" | "studiosUsed" | "studiosEvol" | "agentsUsed" | "agentsEvol";
 
 const sortableColumns: Array<{ id: SortKey; label: string }> = [

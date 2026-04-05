@@ -11,8 +11,9 @@ import Grid from "@mui/material/GridLegacy";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
 import { commonSx } from "../../../ui/styles/commonSx";
+import type { AgentProductivityItem } from "../../../types/domain";
 
-const dummyAgents = [
+const dummyAgents: AgentProductivityItem[] = [
   {
     id: "1",
     name: "Leapwork Cloud Agent 1",

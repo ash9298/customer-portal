@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { darkTokens } from "../../ui/theme";
+import type { SidebarMenuItem } from "../../types/ui";
 
 const Menu = () => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const Menu = () => {
     }
   }, [currentPath]);
 
-  const MenuItems = [
+  const menuItems: SidebarMenuItem[] = [
     {
       text: "Reports",
       children: [
@@ -42,8 +43,8 @@ const Menu = () => {
   return (
     <nav>
       <List sx={{ py: 0 }}>
-        {MenuItems.map((item) => {
-          if (item.children) {
+        {menuItems.map((item) => {
+          if ("children" in item) {
             return (
               <div key={item.text}>
                 {/* Reports – TOGGLE ONLY */}

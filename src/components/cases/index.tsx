@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CasesTable from "./CasesTable";
+import type { CaseRecord, CaseStatus } from "../../types/domain";
 
 const CASES = [
   {
@@ -456,21 +457,14 @@ const CASES = [
   },
 ];
 
-type CaseItem = (typeof CASES)[number];
-type CaseStatusKey =
-  | "New"
-  | "Open"
-  | "Pending from Agent"
-  | "Pending from Customer"
-  | "On Hold"
-  | "Closed";
+type CaseItem = CaseRecord;
 
 const Cases = () => {
   const [cases, setCases] = useState<CaseItem[]>(CASES);
 
   useEffect(() => {
     const processCases = () => {
-      const statusOrder: Record<CaseStatusKey, number> = {
+      const statusOrder: Record<CaseStatus, number> = {
         New: 1,
         Open: 2,
         "Pending from Agent": 3,
@@ -490,9 +484,9 @@ const Cases = () => {
         }
 
         const statusA =
-          statusOrder[a.Status as CaseStatusKey] ?? Number.MAX_SAFE_INTEGER;
+          statusOrder[a.Status as CaseStatus] ?? Number.MAX_SAFE_INTEGER;
         const statusB =
-          statusOrder[b.Status as CaseStatusKey] ?? Number.MAX_SAFE_INTEGER;
+          statusOrder[b.Status as CaseStatus] ?? Number.MAX_SAFE_INTEGER;
 
         return statusA - statusB || b.Id.localeCompare(a.Id);
       };

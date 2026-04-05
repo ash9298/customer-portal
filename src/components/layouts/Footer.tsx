@@ -32,6 +32,7 @@ import { logout } from "../../store/authSlice";
 import { type AppDispatch, type RootState } from "../../store";
 import { darkTokens } from "../../ui/theme";
 import { commonSx } from "../../ui/styles/commonSx";
+import type { KnowledgeResourceItem } from "../../types/ui";
 
 const footerSx = {
   container: {
@@ -164,7 +165,7 @@ const Footer = () => {
     navigate("/login", { replace: true });
   };
 
-  const knowledgeResources = [
+  const knowledgeResources: KnowledgeResourceItem[] = [
     {
       text: "Product docs",
       description:

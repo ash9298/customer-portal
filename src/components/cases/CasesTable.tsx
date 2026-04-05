@@ -4,34 +4,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { DataTable } from "../../ui/DataTable";
 import { darkTokens } from "../../ui/theme";
 import { commonSx } from "../../ui/styles/commonSx";
-
-type CaseRecord = {
-  Id: string;
-  CaseNumber: string;
-  Subject: string;
-  Description: string;
-  Status: string;
-  Owner: { Name: string };
-  Created_Date_Time__c: string;
-  LastModifiedDate: string;
-  Contact: { Name: string };
-  ContactEmail: string;
-};
-
-type CaseRow = {
-  id: string;
-  CaseNumber: string;
-  Subject: string;
-  Desc: string;
-  Status: string;
-  CaseOwner: string;
-  CreatedAt: string;
-  CreatedBy: {
-    name: string;
-    email: string;
-  };
-  LastUpdated: string;
-};
+import type { CaseRecord, CaseRow } from "../../types/domain";
 
 const casesSx = {
   cellContainer: {
