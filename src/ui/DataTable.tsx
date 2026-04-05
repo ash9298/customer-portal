@@ -26,7 +26,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import { darkTokens } from "./theme";
+import { commonSx } from "./styles/commonSx";
 
 type OwnerState = {
   expanded: boolean;
@@ -81,16 +83,71 @@ const StyledTextField = styled(TextField)<{
   },
 }));
 
+const tableSx = {
+  toolbar: { color: darkTokens.text.secondary },
+  toolbarTitle: { flex: 1, mx: 0.5, color: darkTokens.text.primary },
+  icon: { color: darkTokens.text.secondary },
+  menuItem: { color: darkTokens.text.primary, fontSize: 13 },
+  divider: { mx: 0.5, ...commonSx.divider },
+  wrapper: { height: "683px", width: "100%" },
+  grid: {
+    backgroundColor: darkTokens.background.surface,
+    color: darkTokens.text.primary,
+    borderColor: darkTokens.border.default,
+    borderRadius: "4px",
+    "& .MuiDataGrid-topContainer": {
+      backgroundColor: darkTokens.background.surface,
+    },
+    "& .MuiDataGrid-toolbarContainer": {
+      borderBottom: `1px solid ${darkTokens.border.strong}`,
+      minHeight: "40px",
+    },
+    "& .MuiDataGrid-columnHeaders": {
+      backgroundColor: darkTokens.background.surface,
+      borderBottom: `1px solid ${darkTokens.border.strong}`,
+    },
+    "& .MuiDataGrid-columnHeaderTitle": {
+      color: darkTokens.text.secondary,
+      fontWeight: 550,
+      fontSize: "13px",
+    },
+    "& .MuiDataGrid-cell": {
+      borderBottom: `1px solid ${darkTokens.border.strong}`,
+      color: darkTokens.text.primary,
+      fontSize: "13px",
+    },
+    "& .MuiDataGrid-row:hover": {
+      backgroundColor: darkTokens.overlay.rowHover,
+    },
+    "& .MuiDataGrid-footerContainer": {
+      borderTop: `1px solid ${darkTokens.border.strong}`,
+      color: darkTokens.text.secondary,
+    },
+    "& .MuiTablePagination-root, & .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows, & .MuiTablePagination-selectIcon":
+      {
+        color: darkTokens.text.secondary,
+      },
+    "& .MuiDataGrid-menuIconButton, & .MuiDataGrid-sortIcon, & .MuiIconButton-root":
+      {
+        color: darkTokens.text.secondary,
+      },
+    "& .MuiCheckbox-root": {
+      color: darkTokens.text.secondary,
+    },
+    "& .MuiDataGrid-overlay": {
+      backgroundColor: darkTokens.background.surface,
+      color: darkTokens.text.secondary,
+    },
+  },
+};
+
 const CustomToolbar = () => {
   const [exportMenuOpen, setExportMenuOpen] = React.useState(false);
   const exportMenuTriggerRef = React.useRef<HTMLButtonElement>(null);
 
   return (
-    <Toolbar style={{ color: darkTokens.text.secondary }}>
-      <Typography
-        fontWeight={550}
-        sx={{ flex: 1, mx: 0.5, color: darkTokens.text.primary }}
-      >
+    <Toolbar style={tableSx.toolbar}>
+      <Typography fontWeight={550} sx={tableSx.toolbarTitle}>
         Toolbar
       </Typography>
 
@@ -111,7 +168,7 @@ const CustomToolbar = () => {
             <ToolbarButton material={{ sx: { color: darkTokens.text.secondary } }} />
           }
         >
-          <ViewColumnIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+          <ViewColumnIcon fontSize="small" sx={tableSx.icon} />
         </ColumnsPanelTrigger>
       </Tooltip>
 
@@ -141,7 +198,7 @@ const CustomToolbar = () => {
               >
                 <FilterListIcon
                   fontSize="small"
-                  sx={{ color: darkTokens.text.secondary }}
+                  sx={tableSx.icon}
                 />
               </Badge>
             </ToolbarButton>
@@ -153,7 +210,7 @@ const CustomToolbar = () => {
         orientation="vertical"
         variant="middle"
         flexItem
-        sx={{ mx: 0.5, borderColor: darkTokens.border.default }}
+        sx={tableSx.divider}
       />
 
       <Tooltip
@@ -179,7 +236,7 @@ const CustomToolbar = () => {
         >
           <FileDownloadIcon
             fontSize="small"
-            sx={{ color: darkTokens.text.secondary }}
+            sx={tableSx.icon}
           />
         </ToolbarButton>
       </Tooltip>
@@ -208,17 +265,13 @@ const CustomToolbar = () => {
         }}
       >
         <ExportPrint
-          render={
-            <MenuItem sx={{ color: darkTokens.text.primary, fontSize: 13 }} />
-          }
+          render={<MenuItem sx={tableSx.menuItem} />}
           onClick={() => setExportMenuOpen(false)}
         >
           Print
         </ExportPrint>
         <ExportCsv
-          render={
-            <MenuItem sx={{ color: darkTokens.text.primary, fontSize: 13 }} />
-          }
+          render={<MenuItem sx={tableSx.menuItem} />}
           onClick={() => setExportMenuOpen(false)}
         >
           Download as CSV
@@ -249,7 +302,7 @@ const CustomToolbar = () => {
               >
                 <SearchIcon
                   fontSize="small"
-                  sx={{ color: darkTokens.text.secondary }}
+                  sx={tableSx.icon}
                 />
               </StyledToolbarButton>
             </Tooltip>
@@ -270,7 +323,7 @@ const CustomToolbar = () => {
                     <InputAdornment position="start">
                       <SearchIcon
                         fontSize="small"
-                        sx={{ color: darkTokens.text.secondary }}
+                        sx={tableSx.icon}
                       />
                     </InputAdornment>
                   ),
@@ -284,7 +337,7 @@ const CustomToolbar = () => {
                       >
                         <CancelIcon
                           fontSize="small"
-                          sx={{ color: darkTokens.text.secondary }}
+                          sx={tableSx.icon}
                         />
                       </QuickFilterClear>
                     </InputAdornment>
@@ -305,64 +358,16 @@ type DataTableProps = React.ComponentProps<typeof DataGrid>;
 
 export const DataTable = (props: DataTableProps) => {
   return (
-    <div style={{ height: "683px", width: "100%" }}>
+    <Box sx={tableSx.wrapper}>
       <DataGrid
         {...props}
-        sx={{
-          backgroundColor: darkTokens.background.surface,
-          color: darkTokens.text.primary,
-          borderColor: darkTokens.border.default,
-          borderRadius: "4px",
-          "& .MuiDataGrid-topContainer": {
-            backgroundColor: darkTokens.background.surface,
-          },
-          "& .MuiDataGrid-toolbarContainer": {
-            borderBottom: `1px solid ${darkTokens.border.strong}`,
-            minHeight: "40px",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: darkTokens.background.surface,
-            borderBottom: `1px solid ${darkTokens.border.strong}`,
-          },
-          "& .MuiDataGrid-columnHeaderTitle": {
-            color: darkTokens.text.secondary,
-            fontWeight: 550,
-            fontSize: "13px",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: `1px solid ${darkTokens.border.strong}`,
-            color: darkTokens.text.primary,
-            fontSize: "13px",
-          },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: darkTokens.overlay.rowHover,
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: `1px solid ${darkTokens.border.strong}`,
-            color: darkTokens.text.secondary,
-          },
-          "& .MuiTablePagination-root, & .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows, & .MuiTablePagination-selectIcon":
-            {
-              color: darkTokens.text.secondary,
-            },
-          "& .MuiDataGrid-menuIconButton, & .MuiDataGrid-sortIcon, & .MuiIconButton-root":
-            {
-              color: darkTokens.text.secondary,
-            },
-          "& .MuiCheckbox-root": {
-            color: darkTokens.text.secondary,
-          },
-          "& .MuiDataGrid-overlay": {
-            backgroundColor: darkTokens.background.surface,
-            color: darkTokens.text.secondary,
-          },
-        }}
+        sx={tableSx.grid}
         slots={{ toolbar: CustomToolbar }}
         initialState={{
           pagination: { paginationModel: { pageSize: 10, page: 0 } },
         }}
         //  pageSizeOptions={[5, 10]}
       />
-    </div>
+    </Box>
   );
 };

@@ -11,46 +11,61 @@ import {
 import { PrimaryButton, SecondaryButton } from "../../ui/Button";
 import AlertBox from "../../ui/Alert";
 import { darkTokens } from "../../ui/theme";
+import { commonSx } from "../../ui/styles/commonSx";
+
+const downloadSx = {
+  intro: { fontSize: "14px", mb: 2, color: darkTokens.text.secondary },
+  heading: { color: darkTokens.text.primary, fontWeight: 550 },
+  gridWrap: { display: "flex", flexWrap: "nowrap" },
+  leftCol: { maxWidth: "450px" },
+  utilityStack: { display: "flex", flexDirection: "row", gap: 1 },
+  card: {
+    ...commonSx.panelCard,
+    borderRadius: 1,
+    color: darkTokens.text.primary,
+  },
+  serviceChip: {
+    width: "fit-content",
+    bgcolor: darkTokens.status.warningBg,
+    color: darkTokens.status.warning,
+  },
+  releaseDate: { color: darkTokens.text.secondary },
+  details: { color: darkTokens.text.primary },
+  readMore: {
+    px: 0,
+    alignSelf: "flex-start",
+    textDecoration: "underline",
+    color: darkTokens.text.secondary,
+  },
+  cardActions: { px: 2, pb: 2 },
+};
+
 const Download = () => {
   return (
     <>
-      <Typography
-        sx={{ fontSize: "14px", mb: 2, color: darkTokens.text.secondary }}
-      >
+      <Typography sx={downloadSx.intro}>
         Keep up to date and discover exciting new features and improvements by
         downloading the latest version of Leapwork's software.
       </Typography>
       <AlertBox variant="compact" />
-      <Grid container spacing={3} sx={{ display: "flex", flexWrap: "nowrap" }}>
+      <Grid container spacing={3} sx={downloadSx.gridWrap}>
         {/* LEFT COLUMN – Stable Releases */}
-        <Grid item xs={12} md={6} sx={{ maxWidth: "450px" }}>
+        <Grid item xs={12} md={6} sx={downloadSx.leftCol}>
           <Typography
             variant="h6"
             gutterBottom
-            sx={{ color: darkTokens.text.primary, fontWeight: 550 }}
+            sx={downloadSx.heading}
           >
             Stable releases
           </Typography>
 
-          <Card
-            variant="outlined"
-            sx={{
-              borderRadius: 1,
-              borderColor: darkTokens.border.default,
-              backgroundColor: darkTokens.background.surface,
-              color: darkTokens.text.primary,
-            }}
-          >
+          <Card variant="outlined" sx={downloadSx.card}>
             <CardContent>
               <Stack spacing={1}>
                 <Chip
                   label="Service Release"
                   size="small"
-                  sx={{
-                    width: "fit-content",
-                    bgcolor: darkTokens.status.warningBg,
-                    color: darkTokens.status.warning,
-                  }}
+                  sx={downloadSx.serviceChip}
                 />
 
                 <Typography variant="h6" fontWeight={550}>
@@ -59,14 +74,14 @@ const Download = () => {
 
                 <Typography
                   variant="body2"
-                  sx={{ color: darkTokens.text.secondary }}
+                  sx={downloadSx.releaseDate}
                 >
                   Released on 15-01-2026
                 </Typography>
 
                 <Typography
                   variant="body2"
-                  sx={{ color: darkTokens.text.primary }}
+                  sx={downloadSx.details}
                 >
                   This service release improves stability across Studio, Run
                   Lists, and Leapwork Cloud. It refines multi‑window behavior
@@ -77,21 +92,13 @@ const Download = () => {
                   makes browser‑related failures easier to diagnose.
                 </Typography>
 
-                <Button
-                  size="small"
-                  sx={{
-                    px: 0,
-                    alignSelf: "flex-start",
-                    textDecoration: "underline",
-                    color: darkTokens.text.secondary,
-                  }}
-                >
+                <Button size="small" sx={downloadSx.readMore}>
                   Read more
                 </Button>
               </Stack>
             </CardContent>
 
-            <CardActions sx={{ px: 2, pb: 2 }}>
+            <CardActions sx={downloadSx.cardActions}>
               <Stack spacing={1} width="100%">
                 <SecondaryButton variant="outlined" fullWidth>
                   Copy download link
@@ -109,26 +116,18 @@ const Download = () => {
           <Typography
             variant="h6"
             gutterBottom
-            sx={{ color: darkTokens.text.primary, fontWeight: 550 }}
+            sx={downloadSx.heading}
           >
             Leapwork Studio Utilities
           </Typography>
 
-          <Stack
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 1,
-            }}
-          >
+          <Stack sx={downloadSx.utilityStack}>
             {/* RSAT Migration Tool */}
             <Card
               variant="outlined"
               sx={{
                 maxWidth: "450px",
-                borderRadius: 1,
-                borderColor: darkTokens.border.default,
-                backgroundColor: darkTokens.background.surface,
+                ...downloadSx.card,
                 color: darkTokens.text.primary,
               }}
             >
@@ -140,14 +139,14 @@ const Download = () => {
 
                   <Typography
                     variant="body2"
-                    sx={{ color: darkTokens.text.secondary }}
+                    sx={downloadSx.releaseDate}
                   >
                     Released on 15-01-2026
                   </Typography>
 
                   <Typography
                     variant="body2"
-                    sx={{ color: darkTokens.text.primary }}
+                    sx={downloadSx.details}
                   >
                     Many customers and partners have heavily invested in
                     building automated test suites with Microsoft RSAT for D365
@@ -160,21 +159,13 @@ const Download = () => {
                     and unlock Leapwork’s full value.
                   </Typography>
 
-                  <Button
-                    size="small"
-                    sx={{
-                      px: 0,
-                      alignSelf: "flex-start",
-                      textDecoration: "underline",
-                      color: darkTokens.text.secondary,
-                    }}
-                  >
+                  <Button size="small" sx={downloadSx.readMore}>
                     Read more
                   </Button>
                 </Stack>
               </CardContent>
 
-              <CardActions sx={{ px: 2, pb: 2 }}>
+              <CardActions sx={downloadSx.cardActions}>
                 <Stack spacing={1} width="100%">
                   <SecondaryButton variant="outlined" fullWidth>
                     Copy download link
@@ -194,9 +185,7 @@ const Download = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                borderRadius: 1,
-                borderColor: darkTokens.border.default,
-                backgroundColor: darkTokens.background.surface,
+                ...downloadSx.card,
                 color: darkTokens.text.primary,
               }}
             >
@@ -208,14 +197,14 @@ const Download = () => {
 
                   <Typography
                     variant="body2"
-                    sx={{ color: darkTokens.text.secondary }}
+                    sx={downloadSx.releaseDate}
                   >
                     Released on 28-10-2025
                   </Typography>
 
                   <Typography
                     variant="body2"
-                    sx={{ color: darkTokens.text.primary }}
+                    sx={downloadSx.details}
                   >
                     Diagnosis Report is an automated PowerShell check that
                     verifies your machine’s prerequisites and health for running
@@ -223,21 +212,13 @@ const Download = () => {
                     checks.
                   </Typography>
 
-                  <Button
-                    size="small"
-                    sx={{
-                      px: 0,
-                      alignSelf: "flex-start",
-                      textDecoration: "underline",
-                      color: darkTokens.text.secondary,
-                    }}
-                  >
+                  <Button size="small" sx={downloadSx.readMore}>
                     FAQ's
                   </Button>
                 </Stack>
               </CardContent>
 
-              <CardActions sx={{ px: 2, pb: 2 }}>
+              <CardActions sx={downloadSx.cardActions}>
                 <Stack spacing={1} width="100%">
                   <SecondaryButton variant="outlined" fullWidth>
                     Copy download link

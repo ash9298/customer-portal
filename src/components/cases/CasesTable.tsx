@@ -3,6 +3,50 @@ import ChatIcon from "@mui/icons-material/Chat";
 
 import { DataTable } from "../../ui/DataTable";
 import { darkTokens } from "../../ui/theme";
+import { commonSx } from "../../ui/styles/commonSx";
+
+const casesSx = {
+  cellContainer: {
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
+  description: {
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "normal",
+    lineHeight: 1.3,
+    cursor: "pointer",
+    color: darkTokens.text.primary,
+  },
+  statusChip: {
+    borderRadius: "12px",
+    bgcolor: darkTokens.accent.soft,
+    color: darkTokens.accent.info,
+  },
+  ownerAvatar: {
+    bgcolor: darkTokens.status.warningBg,
+    color: darkTokens.status.warning,
+    width: 32,
+    height: 32,
+    fontSize: 14,
+  },
+  createdByAvatar: {
+    bgcolor: darkTokens.accent.soft,
+    color: darkTokens.accent.info,
+    width: 32,
+    height: 32,
+    fontSize: 14,
+  },
+  createdByMeta: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+};
 
 const formatUTCDate = (date) => {
   if (!date) return "-";
@@ -30,27 +74,8 @@ const columns = [
 
       return (
         <Tooltip title={value} placement="top-start" disableInteractive>
-          <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "normal",
-                lineHeight: 1.3,
-                cursor: "pointer",
-                color: darkTokens.text.primary,
-              }}
-            >
+          <Box sx={casesSx.cellContainer}>
+            <Typography variant="body2" sx={casesSx.description}>
               {value}
             </Typography>
           </Box>
@@ -67,11 +92,7 @@ const columns = [
       <Chip
         label={params.value}
         size="small"
-        sx={{
-          borderRadius: "12px",
-          bgcolor: darkTokens.accent.soft,
-          color: darkTokens.accent.info,
-        }}
+        sx={casesSx.statusChip}
       />
     ),
   },
@@ -90,26 +111,12 @@ const columns = [
             .toUpperCase()
         : "";
       return (
-        <Box
-          sx={{
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={casesSx.cellContainer}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar
-              sx={{
-                bgcolor: darkTokens.status.warningBg,
-                color: darkTokens.status.warning,
-                width: 32,
-                height: 32,
-                fontSize: 14,
-              }}
-            >
+            <Avatar sx={casesSx.ownerAvatar}>
               {initials}
             </Avatar>
-            <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+            <Typography variant="body2" sx={commonSx.panelTitle}>
               {params.value}
             </Typography>
           </Stack>
@@ -141,42 +148,16 @@ const columns = [
         : "";
 
       return (
-        <Box
-          sx={{
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={casesSx.cellContainer}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar
-              sx={{
-                bgcolor: darkTokens.accent.soft,
-                color: darkTokens.accent.info,
-                width: 32,
-                height: 32,
-                fontSize: 14,
-              }}
-            >
+            <Avatar sx={casesSx.createdByAvatar}>
               {initials}
             </Avatar>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="body2"
-                sx={{ color: darkTokens.text.primary }}
-              >
+            <Box sx={casesSx.createdByMeta}>
+              <Typography variant="body2" sx={commonSx.panelTitle}>
                 {name}
               </Typography>
-              <Typography
-                variant="caption"
-                sx={{ color: darkTokens.text.secondary }}
-              >
+              <Typography variant="caption" sx={commonSx.secondaryText}>
                 {email}
               </Typography>
             </Box>
@@ -195,7 +176,7 @@ const columns = [
     headerName: "",
     flex: 1,
     renderCell: () => (
-      <ChatIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+      <ChatIcon fontSize="small" sx={commonSx.secondaryText} />
     ),
   },
 ];

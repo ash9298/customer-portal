@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
+import { commonSx } from "../../../ui/styles/commonSx";
 
 const licenseOverviewData = [
   {
@@ -66,6 +67,29 @@ const licenseOverviewData = [
     agentsEvol: -1,
   },
 ];
+
+const licenseOverviewSx = {
+  card: { mt: 3, ...commonSx.panelCard },
+  header: { ...commonSx.panelHeader },
+  tableWrapper: { maxHeight: 140, overflowY: "auto" },
+  tableHeaderCell: {
+    fontWeight: 550,
+    color: darkTokens.text.secondary,
+    borderColor: darkTokens.border.strong,
+    backgroundColor: darkTokens.background.elevated,
+  },
+  tableRow: {
+    "& td": {
+      borderColor: darkTokens.border.strong,
+      color: darkTokens.text.primary,
+    },
+    "&:hover": {
+      backgroundColor: darkTokens.overlay.rowHover,
+    },
+  },
+  progressWrap: { width: 240 },
+  caption: { color: darkTokens.text.secondary },
+};
 
 const getProgressStyles = (used, total) => {
   let fill = "#1976d2";
@@ -127,28 +151,12 @@ const LicenseOverview = () => {
     });
   }, [rows, orderBy, order]);
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        mt: 3,
-        borderRadius: "4px",
-        position: "relative",
-        backgroundColor: darkTokens.background.surface,
-        borderColor: darkTokens.border.default,
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          p: 2,
-        }}
-      >
+    <Card variant="outlined" sx={licenseOverviewSx.card}>
+      <Box sx={licenseOverviewSx.header}>
         <Typography
           variant="h6"
           fontWeight={550}
-          sx={{ color: darkTokens.text.primary }}
+          sx={commonSx.panelTitle}
         >
           License overview
         </Typography>
@@ -158,31 +166,18 @@ const LicenseOverview = () => {
           placement="top"
           slotProps={{
             tooltip: {
-              sx: {
-                bgcolor: darkTokens.background.elevated,
-                color: darkTokens.text.primary,
-                fontSize: 12,
-                boxShadow: darkTokens.overlay.shadowTooltip,
-              },
+              sx: commonSx.infoTooltip,
             },
           }}
         >
-          <IconButton
-            size="small"
-            sx={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              color: darkTokens.text.secondary,
-            }}
-          >
+          <IconButton size="small" sx={commonSx.infoIconButton}>
             <InfoOutlinedIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Box>
-      <Divider sx={{ borderColor: darkTokens.border.default }} />
+      <Divider sx={commonSx.divider} />
       {/* Table Section */}
-      <Box sx={{ maxHeight: 140, overflowY: "auto" }}>
+      <Box sx={licenseOverviewSx.tableWrapper}>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -195,24 +190,13 @@ const LicenseOverview = () => {
               ].map((column) => (
                 <TableCell
                   key={column.id}
-                  sx={{
-                    fontWeight: 550,
-                    color: darkTokens.text.secondary,
-                    borderColor: darkTokens.border.strong,
-                    backgroundColor: darkTokens.background.elevated,
-                  }}
+                  sx={licenseOverviewSx.tableHeaderCell}
                 >
                   <TableSortLabel
                     active={orderBy === column.id}
                     direction={orderBy === column.id ? order : "asc"}
                     onClick={() => handleSort(column.id)}
-                    sx={{
-                      color: darkTokens.text.secondary,
-                      "&.Mui-active": { color: darkTokens.text.primary },
-                      "& .MuiTableSortLabel-icon": {
-                        color: `${darkTokens.text.secondary} !important`,
-                      },
-                    }}
+                    sx={commonSx.tableSortLabel}
                   >
                     {column.label}
                   </TableSortLabel>
@@ -229,20 +213,12 @@ const LicenseOverview = () => {
               return (
                 <TableRow
                   key={row.license}
-                  sx={{
-                    "& td": {
-                      borderColor: darkTokens.border.strong,
-                      color: darkTokens.text.primary,
-                    },
-                    "&:hover": {
-                      backgroundColor: darkTokens.overlay.rowHover,
-                    },
-                  }}
+                  sx={licenseOverviewSx.tableRow}
                 >
                   <TableCell>{row.license}</TableCell>
 
                   <TableCell>
-                    <Box sx={{ width: 240 }}>
+                    <Box sx={licenseOverviewSx.progressWrap}>
                       <LinearProgress
                         variant="determinate"
                         value={Math.min(studiosPercent, 100)}
@@ -251,10 +227,7 @@ const LicenseOverview = () => {
                           row.studiosTotal,
                         )}
                       />
-                      <Typography
-                        variant="caption"
-                        sx={{ color: darkTokens.text.secondary }}
-                      >
+                      <Typography variant="caption" sx={licenseOverviewSx.caption}>
                         {row.studiosUsed} out of {row.studiosTotal}
                       </Typography>
                     </Box>
@@ -263,16 +236,13 @@ const LicenseOverview = () => {
                   <TableCell>{getEvolutionChip(row.studiosEvol)}</TableCell>
 
                   <TableCell>
-                    <Box sx={{ width: 240 }}>
+                    <Box sx={licenseOverviewSx.progressWrap}>
                       <LinearProgress
                         variant="determinate"
                         value={Math.min(agentsPercent, 100)}
                         sx={getProgressStyles(row.agentsUsed, row.agentsTotal)}
                       />
-                      <Typography
-                        variant="caption"
-                        sx={{ color: darkTokens.text.secondary }}
-                      >
+                      <Typography variant="caption" sx={licenseOverviewSx.caption}>
                         {row.agentsUsed} out of {row.agentsTotal}
                       </Typography>
                     </Box>

@@ -8,89 +8,80 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
+import { commonSx } from "../../../ui/styles/commonSx";
+
+const userActivityStatsSx = {
+  card: {
+    p: 2,
+    borderRadius: "4px",
+    position: "relative",
+    backgroundColor: darkTokens.background.surface,
+    borderColor: darkTokens.border.default,
+  },
+  tooltip: {
+    ...commonSx.infoTooltip,
+  },
+  infoButton: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    color: darkTokens.text.secondary,
+  },
+  row: { display: "flex" },
+  col: { minWidth: "calc(100%/3)" },
+  label: { color: darkTokens.text.secondary },
+  valueRow: { display: "flex", alignItems: "center", gap: 1 },
+  value: { color: darkTokens.text.primary },
+  changeChip: (change: number) => ({
+    backgroundColor:
+      change > 0 ? darkTokens.status.successBg : darkTokens.status.dangerBg,
+    color: change > 0 ? darkTokens.status.successLight : darkTokens.status.dangerSoft,
+    display: "flex",
+    alignItems: "center",
+    padding: "0 4px 0 2px",
+    borderRadius: "3px",
+  }),
+};
 
 const UserActivityStats = () => {
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        p: 2,
-        borderRadius: "4px",
-        position: "relative",
-        backgroundColor: darkTokens.background.surface,
-        borderColor: darkTokens.border.default,
-      }}
-    >
+    <Card variant="outlined" sx={userActivityStatsSx.card}>
       <Tooltip
         title="Number of available Licenses, Studios, Agents and Controllers"
         placement="top"
         slotProps={{
           tooltip: {
-            sx: {
-              bgcolor: darkTokens.background.elevated,
-              color: darkTokens.text.primary,
-              fontSize: 12,
-              boxShadow: darkTokens.overlay.shadowTooltip,
-            },
+            sx: userActivityStatsSx.tooltip,
           },
         }}
       >
-        <IconButton
-          size="small"
-          sx={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            color: darkTokens.text.secondary,
-          }}
-        >
+        <IconButton size="small" sx={userActivityStatsSx.infoButton}>
           <InfoOutlinedIcon fontSize="small" />
         </IconButton>
       </Tooltip>
-      <Grid
-        container
-        sx={{
-          display: "flex",
-        }}
-      >
+      <Grid container sx={userActivityStatsSx.row}>
         {[
           { label: "Total users", value: 451, change: null },
           { label: "Total active users", value: 22, change: 10 },
           { label: "Total inactive users", value: 429, change: -5 },
         ].map((item) => (
-          <Grid item key={item.label} sx={{ minWidth: "calc(100%/3)" }}>
+          <Grid item key={item.label} sx={userActivityStatsSx.col}>
             <Box>
-              <Typography
-                variant="body2"
-                sx={{ color: darkTokens.text.secondary }}
-              >
+              <Typography variant="body2" sx={userActivityStatsSx.label}>
                 {item.label}
               </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box sx={userActivityStatsSx.valueRow}>
                 <Typography
                   variant="h5"
                   fontWeight={550}
-                  sx={{ color: darkTokens.text.primary }}
+                  sx={userActivityStatsSx.value}
                 >
                   {item.value}
                 </Typography>
                 {item.change !== null && item.change !== 0 && (
                   <Typography
                     variant="body2"
-                    sx={{
-                      backgroundColor:
-                        item.change > 0
-                          ? darkTokens.status.successBg
-                          : darkTokens.status.dangerBg,
-                      color:
-                        item.change > 0
-                          ? darkTokens.status.successLight
-                          : darkTokens.status.dangerSoft,
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 4px 0 2px",
-                      borderRadius: "3px",
-                    }}
+                    sx={userActivityStatsSx.changeChip(item.change)}
                   >
                     {item.change > 0 ? "▲" : "▼"} {Math.abs(item.change)}
                   </Typography>

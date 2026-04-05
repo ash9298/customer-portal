@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { darkTokens } from "../../../ui/theme";
+import { commonSx } from "../../../ui/styles/commonSx";
 
 const activeUsers = [
   {
@@ -106,6 +107,50 @@ const inactivUsers = [
   },
 ];
 
+const userActivityUsersSx = {
+  card: { mt: 3, ...commonSx.panelCard },
+  leftSection: {
+    borderRight: { md: `1px solid ${darkTokens.border.strong}` },
+    borderBottom: {
+      xs: `1px solid ${darkTokens.border.strong}`,
+      md: "none",
+    },
+    position: "relative",
+    minWidth: "50%",
+  },
+  rightSection: { position: "relative", minWidth: "50%" },
+  tooltip: { ...commonSx.infoTooltip, p: 1.5 },
+  infoButton: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    zIndex: 1,
+    color: darkTokens.text.secondary,
+  },
+  sectionBody: { p: 3 },
+  sectionTitle: { mb: 2, ...commonSx.panelTitle },
+  sectionDivider: { mb: 2, ...commonSx.divider },
+  table: { minWidth: "100%", mb: 2 },
+  tableHeaderRow: { bgcolor: darkTokens.background.elevated },
+  avatarActive: {
+    width: 32,
+    height: 32,
+    bgcolor: darkTokens.accent.soft,
+    color: darkTokens.accent.info,
+    fontSize: "0.875rem",
+    fontWeight: 500,
+  },
+  avatarInactive: {
+    width: 32,
+    height: 32,
+    bgcolor: darkTokens.background.muted,
+    color: darkTokens.text.secondary,
+    fontSize: "0.875rem",
+    fontWeight: 500,
+  },
+  userName: { fontWeight: 500, color: darkTokens.text.primary },
+};
+
 // Function to format date
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -191,32 +236,10 @@ const UserActivityUsers = () => {
   const inactiveUsersCount = inactivUsers.length;
 
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        mt: 3,
-        borderRadius: "4px",
-        position: "relative",
-        backgroundColor: darkTokens.background.surface,
-        borderColor: darkTokens.border.default,
-      }}
-    >
+    <Card variant="outlined" sx={userActivityUsersSx.card}>
       <Grid container>
         {/* Active Users Section */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            borderRight: { md: `1px solid ${darkTokens.border.strong}` },
-            borderBottom: {
-              xs: `1px solid ${darkTokens.border.strong}`,
-              md: "none",
-            },
-            position: "relative",
-            minWidth: "50%",
-          }}
-        >
+        <Grid item xs={12} md={6} sx={userActivityUsersSx.leftSection}>
           {/* Active Users Tooltip */}
           <Tooltip
             title="Users who have been active in the last 30 days"
@@ -224,73 +247,40 @@ const UserActivityUsers = () => {
             arrow
             slotProps={{
               tooltip: {
-                sx: {
-                  bgcolor: darkTokens.background.elevated,
-                  color: darkTokens.text.primary,
-                  fontSize: 12,
-                  boxShadow: darkTokens.overlay.shadowTooltip,
-                  p: 1.5,
-                },
+                sx: userActivityUsersSx.tooltip,
               },
             }}
           >
-            <IconButton
-              size="small"
-              sx={{
-                position: "absolute",
-                top: 12,
-                right: 12,
-                zIndex: 1,
-                color: darkTokens.text.secondary,
-              }}
-            >
+            <IconButton size="small" sx={userActivityUsersSx.infoButton}>
               <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
 
-          <Box sx={{ p: 3 }}>
+          <Box sx={userActivityUsersSx.sectionBody}>
             <Typography
               variant="h6"
               fontWeight={550}
-              sx={{ mb: 2, color: darkTokens.text.primary }}
+              sx={userActivityUsersSx.sectionTitle}
             >
               Active Users
             </Typography>
-            <Divider sx={{ mb: 2, borderColor: darkTokens.border.default }} />
+            <Divider sx={userActivityUsersSx.sectionDivider} />
 
             {/* Active Users Table */}
-            <Table size="small" sx={{ minWidth: "100%", mb: 2 }}>
+            <Table size="small" sx={userActivityUsersSx.table}>
               <TableHead>
-                <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
-                  <TableCell
-                    sx={{
-                      fontWeight: 550,
-                      color: darkTokens.text.secondary,
-                      border: "none",
-                    }}
-                  >
+                <TableRow sx={userActivityUsersSx.tableHeaderRow}>
+                  <TableCell sx={commonSx.tableHeaderCell}>
                     <TableSortLabel
                       active={activeOrderBy === "User"}
                       direction={activeOrderBy === "User" ? activeOrder : "asc"}
                       onClick={() => handleActiveSort("User")}
-                      sx={{
-                        color: darkTokens.text.secondary,
-                        "&.Mui-active": { color: darkTokens.text.primary },
-                        "& .MuiTableSortLabel-icon": {
-                          color: `${darkTokens.text.secondary} !important`,
-                        },
-                      }}
+                      sx={commonSx.tableSortLabel}
                     >
                       User
                     </TableSortLabel>
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 550,
-                      color: darkTokens.text.secondary,
-                      border: "none",
-                    }}
-                  >
+                  <TableCell sx={commonSx.tableHeaderCell}>
                     <TableSortLabel
                       active={activeOrderBy === "Last Active Date"}
                       direction={
@@ -299,13 +289,7 @@ const UserActivityUsers = () => {
                           : "asc"
                       }
                       onClick={() => handleActiveSort("Last Active Date")}
-                      sx={{
-                        color: darkTokens.text.secondary,
-                        "&.Mui-active": { color: darkTokens.text.primary },
-                        "& .MuiTableSortLabel-icon": {
-                          color: `${darkTokens.text.secondary} !important`,
-                        },
-                      }}
+                      sx={commonSx.tableSortLabel}
                     >
                       Last activity date
                     </TableSortLabel>
@@ -314,54 +298,19 @@ const UserActivityUsers = () => {
               </TableHead>
               <TableBody>
                 {displayedActiveUsers.map((user) => (
-                  <TableRow
-                    key={user.Id}
-                    sx={{
-                      "&:last-child td, &:last-child th": {
-                        borderBottom: "none",
-                      },
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        borderBottom: `1px solid ${darkTokens.border.strong}`,
-                        py: 1.5,
-                      }}
-                    >
+                  <TableRow key={user.Id} sx={commonSx.noRowBorderOnLast}>
+                    <TableCell sx={commonSx.rowDividerCell}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
-                        <Avatar
-                          sx={{
-                            width: 32,
-                            height: 32,
-                            bgcolor: darkTokens.accent.soft,
-                            color: darkTokens.accent.info,
-                            fontSize: "0.875rem",
-                            fontWeight: 500,
-                          }}
-                        >
+                        <Avatar sx={userActivityUsersSx.avatarActive}>
                           {getInitials(user.User)}
                         </Avatar>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            fontWeight: 500,
-                            color: darkTokens.text.primary,
-                          }}
-                        >
+                        <Typography variant="body2" sx={userActivityUsersSx.userName}>
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        borderBottom: `1px solid ${darkTokens.border.strong}`,
-                        py: 1.5,
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{ color: darkTokens.text.secondary }}
-                      >
+                    <TableCell sx={commonSx.rowDividerCell}>
+                      <Typography variant="body2" sx={commonSx.secondaryText}>
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>
@@ -375,29 +324,14 @@ const UserActivityUsers = () => {
               <Chip
                 label={`${activeUsersCount} results`}
                 size="small"
-                sx={{
-                  borderRadius: 1,
-                  bgcolor: darkTokens.background.muted,
-                  color: darkTokens.text.secondary,
-                  fontWeight: 500,
-                  fontSize: "0.75rem",
-                  "& .MuiChip-label": { px: 1.5 },
-                }}
+                sx={commonSx.resultsChip}
               />
             </Stack>
           </Box>
         </Grid>
 
         {/* Inactive Users Section */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            position: "relative",
-            minWidth: "50%",
-          }}
-        >
+        <Grid item xs={12} md={6} sx={userActivityUsersSx.rightSection}>
           {/* Inactive Users Tooltip */}
           <Tooltip
             title="Users who have been inactive for more than 30 days"
@@ -405,75 +339,42 @@ const UserActivityUsers = () => {
             arrow
             slotProps={{
               tooltip: {
-                sx: {
-                  bgcolor: darkTokens.background.elevated,
-                  color: darkTokens.text.primary,
-                  fontSize: 12,
-                  boxShadow: darkTokens.overlay.shadowTooltip,
-                  p: 1.5,
-                },
+                sx: userActivityUsersSx.tooltip,
               },
             }}
           >
-            <IconButton
-              size="small"
-              sx={{
-                position: "absolute",
-                top: 12,
-                right: 12,
-                zIndex: 1,
-                color: darkTokens.text.secondary,
-              }}
-            >
+            <IconButton size="small" sx={userActivityUsersSx.infoButton}>
               <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
 
-          <Box sx={{ p: 3 }}>
+          <Box sx={userActivityUsersSx.sectionBody}>
             <Typography
               variant="h6"
               fontWeight={550}
-              sx={{ mb: 2, color: darkTokens.text.primary }}
+              sx={userActivityUsersSx.sectionTitle}
             >
               Inactive Users
             </Typography>
-            <Divider sx={{ mb: 2, borderColor: darkTokens.border.default }} />
+            <Divider sx={userActivityUsersSx.sectionDivider} />
 
             {/* Inactive Users Table */}
-            <Table size="small" sx={{ minWidth: "100%", mb: 2 }}>
+            <Table size="small" sx={userActivityUsersSx.table}>
               <TableHead>
-                <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
-                  <TableCell
-                    sx={{
-                      fontWeight: 550,
-                      color: darkTokens.text.secondary,
-                      border: "none",
-                    }}
-                  >
+                <TableRow sx={userActivityUsersSx.tableHeaderRow}>
+                  <TableCell sx={commonSx.tableHeaderCell}>
                     <TableSortLabel
                       active={inactiveOrderBy === "User"}
                       direction={
                         inactiveOrderBy === "User" ? inactiveOrder : "asc"
                       }
                       onClick={() => handleInactiveSort("User")}
-                      sx={{
-                        color: darkTokens.text.secondary,
-                        "&.Mui-active": { color: darkTokens.text.primary },
-                        "& .MuiTableSortLabel-icon": {
-                          color: `${darkTokens.text.secondary} !important`,
-                        },
-                      }}
+                      sx={commonSx.tableSortLabel}
                     >
                       User
                     </TableSortLabel>
                   </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 550,
-                      color: darkTokens.text.secondary,
-                      border: "none",
-                    }}
-                  >
+                  <TableCell sx={commonSx.tableHeaderCell}>
                     <TableSortLabel
                       active={inactiveOrderBy === "Last Active Date"}
                       direction={
@@ -482,13 +383,7 @@ const UserActivityUsers = () => {
                           : "asc"
                       }
                       onClick={() => handleInactiveSort("Last Active Date")}
-                      sx={{
-                        color: darkTokens.text.secondary,
-                        "&.Mui-active": { color: darkTokens.text.primary },
-                        "& .MuiTableSortLabel-icon": {
-                          color: `${darkTokens.text.secondary} !important`,
-                        },
-                      }}
+                      sx={commonSx.tableSortLabel}
                     >
                       Last activity date
                     </TableSortLabel>
@@ -497,54 +392,19 @@ const UserActivityUsers = () => {
               </TableHead>
               <TableBody>
                 {displayedInactiveUsers.map((user) => (
-                  <TableRow
-                    key={user.Id}
-                    sx={{
-                      "&:last-child td, &:last-child th": {
-                        borderBottom: "none",
-                      },
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        borderBottom: `1px solid ${darkTokens.border.strong}`,
-                        py: 1.5,
-                      }}
-                    >
+                  <TableRow key={user.Id} sx={commonSx.noRowBorderOnLast}>
+                    <TableCell sx={commonSx.rowDividerCell}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
-                        <Avatar
-                          sx={{
-                            width: 32,
-                            height: 32,
-                            bgcolor: darkTokens.background.muted,
-                            color: darkTokens.text.secondary,
-                            fontSize: "0.875rem",
-                            fontWeight: 500,
-                          }}
-                        >
+                        <Avatar sx={userActivityUsersSx.avatarInactive}>
                           {getInitials(user.User)}
                         </Avatar>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            fontWeight: 500,
-                            color: darkTokens.text.primary,
-                          }}
-                        >
+                        <Typography variant="body2" sx={userActivityUsersSx.userName}>
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        borderBottom: `1px solid ${darkTokens.border.strong}`,
-                        py: 1.5,
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{ color: darkTokens.text.secondary }}
-                      >
+                    <TableCell sx={commonSx.rowDividerCell}>
+                      <Typography variant="body2" sx={commonSx.secondaryText}>
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>
@@ -558,14 +418,7 @@ const UserActivityUsers = () => {
               <Chip
                 label={`${inactiveUsersCount} results`}
                 size="small"
-                sx={{
-                  borderRadius: 1,
-                  bgcolor: darkTokens.background.muted,
-                  color: darkTokens.text.secondary,
-                  fontWeight: 500,
-                  fontSize: "0.75rem",
-                  "& .MuiChip-label": { px: 1.5 },
-                }}
+                sx={commonSx.resultsChip}
               />
             </Stack>
           </Box>
