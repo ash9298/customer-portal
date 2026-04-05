@@ -145,7 +145,11 @@ const LicenseOverview = () => {
           p: 2,
         }}
       >
-        <Typography variant="h6" fontWeight={550} sx={{ color: darkTokens.text.primary }}>
+        <Typography
+          variant="h6"
+          fontWeight={550}
+          sx={{ color: darkTokens.text.primary }}
+        >
           License overview
         </Typography>
 
@@ -242,9 +246,15 @@ const LicenseOverview = () => {
                       <LinearProgress
                         variant="determinate"
                         value={Math.min(studiosPercent, 100)}
-                        sx={getProgressStyles(row.studiosUsed, row.studiosTotal)}
+                        sx={getProgressStyles(
+                          row.studiosUsed,
+                          row.studiosTotal,
+                        )}
                       />
-                      <Typography variant="caption" sx={{ color: darkTokens.text.secondary }}>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: darkTokens.text.secondary }}
+                      >
                         {row.studiosUsed} out of {row.studiosTotal}
                       </Typography>
                     </Box>
@@ -259,7 +269,10 @@ const LicenseOverview = () => {
                         value={Math.min(agentsPercent, 100)}
                         sx={getProgressStyles(row.agentsUsed, row.agentsTotal)}
                       />
-                      <Typography variant="caption" sx={{ color: darkTokens.text.secondary }}>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: darkTokens.text.secondary }}
+                      >
                         {row.agentsUsed} out of {row.agentsTotal}
                       </Typography>
                     </Box>

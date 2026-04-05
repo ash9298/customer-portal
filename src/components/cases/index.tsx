@@ -487,13 +487,13 @@ const Cases = () => {
       };
 
       const nonClosedCases = CASES.filter((c) => c.Status !== "Closed").sort(
-        sortCases
+        sortCases,
       );
 
       const closedCases = CASES.filter(
         (c) =>
           c.Status === "Closed" &&
-          new Date(c.LastModifiedDate) >= closedCutoffDate
+          new Date(c.LastModifiedDate) >= closedCutoffDate,
       ).sort(sortCases);
 
       setCases([...nonClosedCases, ...closedCases]);

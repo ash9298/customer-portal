@@ -1,8 +1,8 @@
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
 } from "react-router-dom";
 import { Provider } from "react-redux";
 
@@ -21,6 +21,7 @@ import UserActivityTab from "./components/reports/userActivity";
 import TestResultsTab from "./components/reports/testResults";
 import LeapworkUsageTab from "./components/reports/leapworkUsage";
 import DashboardLayout from "./components/layouts/DashboardLayout";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -67,8 +68,9 @@ function App() {
               <Route path="test-results" element={<TestResultsTab />} />
               <Route path="leapwork-usage" element={<LeapworkUsageTab />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </Provider>

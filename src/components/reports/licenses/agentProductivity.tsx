@@ -165,7 +165,10 @@ const AgentProductivity = () => {
         >
           <Box textAlign="center">
             <CircularWithLabel value={Math.round(generalProductivity)} />
-            <Typography variant="body2" sx={{ mt: 2, color: darkTokens.text.secondary }}>
+            <Typography
+              variant="body2"
+              sx={{ mt: 2, color: darkTokens.text.secondary }}
+            >
               General Agent productivity
             </Typography>
           </Box>
@@ -205,13 +208,22 @@ const AgentProductivity = () => {
               }}
             >
               <Box>
-                <Typography fontWeight={550} sx={{ color: darkTokens.text.primary }}>
+                <Typography
+                  fontWeight={550}
+                  sx={{ color: darkTokens.text.primary }}
+                >
                   {agent.name}
                 </Typography>
-                <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: darkTokens.text.secondary }}
+                >
                   Productivity
                 </Typography>
-                <Typography variant="caption" sx={{ color: darkTokens.text.muted }}>
+                <Typography
+                  variant="caption"
+                  sx={{ color: darkTokens.text.muted }}
+                >
                   License: {agent.license}
                 </Typography>
               </Box>

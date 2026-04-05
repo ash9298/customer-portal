@@ -167,10 +167,16 @@ const columns = [
                 justifyContent: "center",
               }}
             >
-              <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+              <Typography
+                variant="body2"
+                sx={{ color: darkTokens.text.primary }}
+              >
                 {name}
               </Typography>
-              <Typography variant="caption" sx={{ color: darkTokens.text.secondary }}>
+              <Typography
+                variant="caption"
+                sx={{ color: darkTokens.text.secondary }}
+              >
                 {email}
               </Typography>
             </Box>

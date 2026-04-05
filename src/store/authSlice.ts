@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../api"; // axios instance with baseURL
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import api from "../api";
 
 interface User {
   email: string;
-  name: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 interface AuthState {
@@ -31,7 +33,7 @@ export const login = createAsyncThunk(
         withCredentials: true,
       });
 
-      return response.data.user;
+      return response.data.user as User;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || "Login failed");
     }
@@ -46,8 +48,8 @@ export const checkAuth = createAsyncThunk(
         withCredentials: true,
       });
 
-      return response.data.user;
-    } catch (err: any) {
+      return response.data.user as User;
+    } catch {
       return rejectWithValue(null);
     }
   }

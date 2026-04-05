@@ -2,10 +2,16 @@ import { Box, CircularProgress } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import { InteractionStatus } from "@azure/msal-browser";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { useSelector } from "react-redux";
+import { type RootState } from "../store";
 
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { inProgress } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
+  const isMsalAuthenticated = useIsAuthenticated();
+  const isStoreAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   if (inProgress !== InteractionStatus.None) {
     return (
       <Box
@@ -20,7 +26,12 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
       </Box>
     );
   }
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
+
+  return isMsalAuthenticated || isStoreAuthenticated ? (
+    <Navigate to="/dashboard" replace />
+  ) : (
+    children
+  );
 };
 
 export default PublicRoute;

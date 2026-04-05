@@ -209,7 +209,10 @@ const UserActivityUsers = () => {
           md={6}
           sx={{
             borderRight: { md: `1px solid ${darkTokens.border.strong}` },
-            borderBottom: { xs: `1px solid ${darkTokens.border.strong}`, md: "none" },
+            borderBottom: {
+              xs: `1px solid ${darkTokens.border.strong}`,
+              md: "none",
+            },
             position: "relative",
             minWidth: "50%",
           }}
@@ -260,7 +263,11 @@ const UserActivityUsers = () => {
               <TableHead>
                 <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
                   <TableCell
-                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
+                    sx={{
+                      fontWeight: 550,
+                      color: darkTokens.text.secondary,
+                      border: "none",
+                    }}
                   >
                     <TableSortLabel
                       active={activeOrderBy === "User"}
@@ -278,7 +285,11 @@ const UserActivityUsers = () => {
                     </TableSortLabel>
                   </TableCell>
                   <TableCell
-                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
+                    sx={{
+                      fontWeight: 550,
+                      color: darkTokens.text.secondary,
+                      border: "none",
+                    }}
                   >
                     <TableSortLabel
                       active={activeOrderBy === "Last Active Date"}
@@ -310,9 +321,12 @@ const UserActivityUsers = () => {
                         borderBottom: "none",
                       },
                     }}
-                    >
+                  >
                     <TableCell
-                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
+                      sx={{
+                        borderBottom: `1px solid ${darkTokens.border.strong}`,
+                        py: 1.5,
+                      }}
                     >
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
@@ -329,16 +343,25 @@ const UserActivityUsers = () => {
                         </Avatar>
                         <Typography
                           variant="body2"
-                          sx={{ fontWeight: 500, color: darkTokens.text.primary }}
+                          sx={{
+                            fontWeight: 500,
+                            color: darkTokens.text.primary,
+                          }}
                         >
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
+                      sx={{
+                        borderBottom: `1px solid ${darkTokens.border.strong}`,
+                        py: 1.5,
+                      }}
                     >
-                      <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: darkTokens.text.secondary }}
+                      >
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>
@@ -421,7 +444,11 @@ const UserActivityUsers = () => {
               <TableHead>
                 <TableRow sx={{ bgcolor: darkTokens.background.elevated }}>
                   <TableCell
-                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
+                    sx={{
+                      fontWeight: 550,
+                      color: darkTokens.text.secondary,
+                      border: "none",
+                    }}
                   >
                     <TableSortLabel
                       active={inactiveOrderBy === "User"}
@@ -441,7 +468,11 @@ const UserActivityUsers = () => {
                     </TableSortLabel>
                   </TableCell>
                   <TableCell
-                    sx={{ fontWeight: 550, color: darkTokens.text.secondary, border: "none" }}
+                    sx={{
+                      fontWeight: 550,
+                      color: darkTokens.text.secondary,
+                      border: "none",
+                    }}
                   >
                     <TableSortLabel
                       active={inactiveOrderBy === "Last Active Date"}
@@ -473,9 +504,12 @@ const UserActivityUsers = () => {
                         borderBottom: "none",
                       },
                     }}
-                    >
+                  >
                     <TableCell
-                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
+                      sx={{
+                        borderBottom: `1px solid ${darkTokens.border.strong}`,
+                        py: 1.5,
+                      }}
                     >
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <Avatar
@@ -492,16 +526,25 @@ const UserActivityUsers = () => {
                         </Avatar>
                         <Typography
                           variant="body2"
-                          sx={{ fontWeight: 500, color: darkTokens.text.primary }}
+                          sx={{
+                            fontWeight: 500,
+                            color: darkTokens.text.primary,
+                          }}
                         >
                           {user.User}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: `1px solid ${darkTokens.border.strong}`, py: 1.5 }}
+                      sx={{
+                        borderBottom: `1px solid ${darkTokens.border.strong}`,
+                        py: 1.5,
+                      }}
                     >
-                      <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: darkTokens.text.secondary }}
+                      >
                         {formatDate(user["Last Active Date"])}
                       </Typography>
                     </TableCell>

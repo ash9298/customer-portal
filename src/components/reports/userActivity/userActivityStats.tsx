@@ -60,11 +60,18 @@ const UserActivityStats = () => {
         ].map((item) => (
           <Grid item key={item.label} sx={{ minWidth: "calc(100%/3)" }}>
             <Box>
-              <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+              <Typography
+                variant="body2"
+                sx={{ color: darkTokens.text.secondary }}
+              >
                 {item.label}
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Typography variant="h5" fontWeight={550} sx={{ color: darkTokens.text.primary }}>
+                <Typography
+                  variant="h5"
+                  fontWeight={550}
+                  sx={{ color: darkTokens.text.primary }}
+                >
                   {item.value}
                 </Typography>
                 {item.change !== null && item.change !== 0 && (

@@ -14,7 +14,9 @@ import { darkTokens } from "../../ui/theme";
 const Download = () => {
   return (
     <>
-      <Typography sx={{ fontSize: "14px", mb: 2, color: darkTokens.text.secondary }}>
+      <Typography
+        sx={{ fontSize: "14px", mb: 2, color: darkTokens.text.secondary }}
+      >
         Keep up to date and discover exciting new features and improvements by
         downloading the latest version of Leapwork's software.
       </Typography>
@@ -55,11 +57,17 @@ const Download = () => {
                   V.2025.4.151
                 </Typography>
 
-                <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: darkTokens.text.secondary }}
+                >
                   Released on 15-01-2026
                 </Typography>
 
-                <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: darkTokens.text.primary }}
+                >
                   This service release improves stability across Studio, Run
                   Lists, and Leapwork Cloud. It refines multi‑window behavior
                   and Start Web Browser handling, stabilizes subflow editing,
@@ -130,11 +138,17 @@ const Download = () => {
                     RSAT Migration Tool
                   </Typography>
 
-                  <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: darkTokens.text.secondary }}
+                  >
                     Released on 15-01-2026
                   </Typography>
 
-                  <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: darkTokens.text.primary }}
+                  >
                     Many customers and partners have heavily invested in
                     building automated test suites with Microsoft RSAT for D365
                     F&O. However, RSAT’s limitations, especially for
@@ -149,12 +163,12 @@ const Download = () => {
                   <Button
                     size="small"
                     sx={{
-                    px: 0,
-                    alignSelf: "flex-start",
-                    textDecoration: "underline",
-                    color: darkTokens.text.secondary,
-                  }}
-                >
+                      px: 0,
+                      alignSelf: "flex-start",
+                      textDecoration: "underline",
+                      color: darkTokens.text.secondary,
+                    }}
+                  >
                     Read more
                   </Button>
                 </Stack>
@@ -192,11 +206,17 @@ const Download = () => {
                     Diagnosis Report
                   </Typography>
 
-                  <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: darkTokens.text.secondary }}
+                  >
                     Released on 28-10-2025
                   </Typography>
 
-                  <Typography variant="body2" sx={{ color: darkTokens.text.primary }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: darkTokens.text.primary }}
+                  >
                     Diagnosis Report is an automated PowerShell check that
                     verifies your machine’s prerequisites and health for running
                     Leapwork, standardizing diagnostics and removing manual
@@ -206,12 +226,12 @@ const Download = () => {
                   <Button
                     size="small"
                     sx={{
-                    px: 0,
-                    alignSelf: "flex-start",
-                    textDecoration: "underline",
-                    color: darkTokens.text.secondary,
-                  }}
-                >
+                      px: 0,
+                      alignSelf: "flex-start",
+                      textDecoration: "underline",
+                      color: darkTokens.text.secondary,
+                    }}
+                  >
                     FAQ's
                   </Button>
                 </Stack>

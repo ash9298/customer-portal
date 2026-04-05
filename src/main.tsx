@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { MsalProvider } from "@azure/msal-react";
 import { createAppTheme } from "./ui/theme.ts";
-import App from "./App.jsx";
+import App from "./App";
 import { msalInstance } from "./auth/msalConfig";
 import { getConfiguredThemeMode } from "./config/theme.config";
 
@@ -35,9 +35,11 @@ msalInstance
             <App />
           </MsalProvider>
         </ThemeProvider>
-      </StrictMode>,
+      </StrictMode>
     );
   })
   .catch((error) => {
     console.error("MSAL initialization failed:", error);
   });
+
+

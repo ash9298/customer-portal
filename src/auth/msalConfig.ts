@@ -1,5 +1,10 @@
-import { LogLevel, PublicClientApplication } from "@azure/msal-browser";
-import { EventType } from "@azure/msal-browser";
+import {
+  EventType,
+  LogLevel,
+  PublicClientApplication,
+  type AuthenticationResult,
+  type EventMessage,
+} from "@azure/msal-browser";
 
 const clientId = import.meta.env.VITE_AZURE_AD_CLIENT_ID as string | undefined;
 const authority = import.meta.env.VITE_AZURE_AD_AUTHORITY as string | undefined;
@@ -10,7 +15,7 @@ const postLogoutRedirectUri =
   (import.meta.env.VITE_AZURE_AD_POST_LOGOUT_REDIRECT_URI as
     | string
     | undefined) ?? window.location.origin;
-console.log("clientId", clientId);
+
 export const msalInstance = new PublicClientApplication({
   auth: {
     clientId: clientId ?? "",
@@ -25,7 +30,7 @@ export const msalInstance = new PublicClientApplication({
   system: {
     loggerOptions: {
       logLevel: LogLevel.Warning,
-      piiLoggingEnabled: true,
+      piiLoggingEnabled: false,
       loggerCallback: (level, message) => {
         if (level <= LogLevel.Warning) {
           console.warn(message);
@@ -35,19 +40,22 @@ export const msalInstance = new PublicClientApplication({
   },
 });
 
-msalInstance.addEventCallback((event) => {
-  if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
-    const account = event.payload.account;
-    if (account) {
-      msalInstance.setActiveAccount(account);
-    }
+msalInstance.addEventCallback((event: EventMessage) => {
+  if (event.eventType !== EventType.LOGIN_SUCCESS) {
+    return;
+  }
+
+  const payload = event.payload as AuthenticationResult | null;
+  if (payload?.account) {
+    msalInstance.setActiveAccount(payload.account);
   }
 });
 
 export const isMsalConfigured = Boolean(clientId);
 
 export const loginRequest = {
-  scopes: (import.meta.env.VITE_AZURE_AD_SCOPES as string | undefined)
-    ?.split(" ")
-    .filter(Boolean) ?? ["openid", "profile", "email"],
+  scopes:
+    (import.meta.env.VITE_AZURE_AD_SCOPES as string | undefined)
+      ?.split(/[\s,]+/)
+      .filter(Boolean) ?? ["openid", "profile", "email"],
 };

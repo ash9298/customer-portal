@@ -64,47 +64,73 @@ export const LicenseNoteAlert = () => {
         </IconButton>
       }
     >
-      <AlertTitle sx={{ fontWeight: 550, mb: 1, color: darkTokens.text.primary }}>
+      <AlertTitle
+        sx={{ fontWeight: 550, mb: 1, color: darkTokens.text.primary }}
+      >
         Important License Update Note
       </AlertTitle>
-      <Typography variant="body2" sx={{ mb: 1.5, color: darkTokens.text.secondary }}>
+      <Typography
+        variant="body2"
+        sx={{ mb: 1.5, color: darkTokens.text.secondary }}
+      >
         Before applying a new license key, kindly review:
       </Typography>
 
       <List dense sx={{ py: 0, mb: 1.5 }}>
         <ListItem sx={{ py: 0.5, pl: 0 }}>
           <ListItemIcon sx={{ minWidth: 36 }}>
-            <PeopleIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+            <PeopleIcon
+              fontSize="small"
+              sx={{ color: darkTokens.text.secondary }}
+            />
           </ListItemIcon>
           <ListItemText
             primary="Number of users in the User Management section"
-            primaryTypographyProps={{ variant: "body2", color: darkTokens.text.secondary }}
+            primaryTypographyProps={{
+              variant: "body2",
+              color: darkTokens.text.secondary,
+            }}
           />
         </ListItem>
         <ListItem sx={{ py: 0.5, pl: 0 }}>
           <ListItemIcon sx={{ minWidth: 36 }}>
-            <BusinessIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+            <BusinessIcon
+              fontSize="small"
+              sx={{ color: darkTokens.text.secondary }}
+            />
           </ListItemIcon>
           <ListItemText
             primary="Number of studios assigned to your license"
-            primaryTypographyProps={{ variant: "body2", color: darkTokens.text.secondary }}
+            primaryTypographyProps={{
+              variant: "body2",
+              color: darkTokens.text.secondary,
+            }}
           />
         </ListItem>
       </List>
 
-      <Typography variant="body2" sx={{ mb: 1.5, color: darkTokens.text.secondary }}>
+      <Typography
+        variant="body2"
+        sx={{ mb: 1.5, color: darkTokens.text.secondary }}
+      >
         If you notice any discrepancies, please reach out to:
       </Typography>
 
       <Box sx={{ display: "flex", gap: 2, mb: 1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <ContactSupportIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+          <ContactSupportIcon
+            fontSize="small"
+            sx={{ color: darkTokens.text.secondary }}
+          />
           <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
             Leapwork Customer Success Manager (CSM)
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <ContactSupportIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+          <ContactSupportIcon
+            fontSize="small"
+            sx={{ color: darkTokens.text.secondary }}
+          />
           <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
             Support Team
           </Typography>
@@ -123,7 +149,10 @@ export const LicenseNoteAlert = () => {
         }}
         icon={<WarningIcon sx={{ color: darkTokens.status.dangerSoft }} />}
       >
-        <Typography variant="body2" sx={{ fontWeight: 500, color: darkTokens.text.primary }}>
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: 500, color: darkTokens.text.primary }}
+        >
           Important: Applying a license with a smaller number of studios than
           currently used seats may lead to the deletion of users during the
           upgrade.
@@ -131,8 +160,14 @@ export const LicenseNoteAlert = () => {
       </Alert>
 
       <Box sx={{ display: "flex", alignItems: "center", mt: 2, gap: 1 }}>
-        <CheckCircleIcon sx={{ color: darkTokens.status.successLight }} fontSize="small" />
-        <Typography variant="body2" sx={{ fontStyle: "italic", color: darkTokens.text.secondary }}>
+        <CheckCircleIcon
+          sx={{ color: darkTokens.status.successLight }}
+          fontSize="small"
+        />
+        <Typography
+          variant="body2"
+          sx={{ fontStyle: "italic", color: darkTokens.text.secondary }}
+        >
           Thank you for your attention!
         </Typography>
       </Box>
@@ -158,10 +193,18 @@ export const LicenseNotePaper = () => {
       <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
         <InfoIcon sx={{ mr: 1.5, mt: 0.5, color: darkTokens.status.warning }} />
         <Box>
-          <Typography variant="h6" sx={{ color: darkTokens.text.primary }} gutterBottom>
+          <Typography
+            variant="h6"
+            sx={{ color: darkTokens.text.primary }}
+            gutterBottom
+          >
             Note: License Update Instructions
           </Typography>
-          <Typography variant="body2" color={darkTokens.text.secondary} paragraph>
+          <Typography
+            variant="body2"
+            color={darkTokens.text.secondary}
+            paragraph
+          >
             Before applying a new license key, please carefully follow these
             steps:
           </Typography>
@@ -181,24 +224,42 @@ export const LicenseNotePaper = () => {
         <List dense sx={{ pl: 2 }}>
           <ListItem sx={{ py: 0.5, pl: 0 }}>
             <ListItemIcon sx={{ minWidth: 32 }}>
-              <PeopleIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+              <PeopleIcon
+                fontSize="small"
+                sx={{ color: darkTokens.text.secondary }}
+              />
             </ListItemIcon>
             <ListItemText
               primary="Check the number of users in User Management section"
               secondary="Go to User Management to verify current user count"
-              primaryTypographyProps={{ variant: "body2", color: darkTokens.text.primary }}
-              secondaryTypographyProps={{ variant: "caption", color: darkTokens.text.secondary }}
+              primaryTypographyProps={{
+                variant: "body2",
+                color: darkTokens.text.primary,
+              }}
+              secondaryTypographyProps={{
+                variant: "caption",
+                color: darkTokens.text.secondary,
+              }}
             />
           </ListItem>
           <ListItem sx={{ py: 0.5, pl: 0 }}>
             <ListItemIcon sx={{ minWidth: 32 }}>
-              <BusinessIcon fontSize="small" sx={{ color: darkTokens.text.secondary }} />
+              <BusinessIcon
+                fontSize="small"
+                sx={{ color: darkTokens.text.secondary }}
+              />
             </ListItemIcon>
             <ListItemText
               primary="Verify studios assigned to your license"
               secondary="Confirm studio count matches your license"
-              primaryTypographyProps={{ variant: "body2", color: darkTokens.text.primary }}
-              secondaryTypographyProps={{ variant: "caption", color: darkTokens.text.secondary }}
+              primaryTypographyProps={{
+                variant: "body2",
+                color: darkTokens.text.primary,
+              }}
+              secondaryTypographyProps={{
+                variant: "caption",
+                color: darkTokens.text.secondary,
+              }}
             />
           </ListItem>
         </List>
@@ -232,7 +293,10 @@ export const LicenseNotePaper = () => {
             >
               Customer Success Manager
             </Typography>
-            <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+            <Typography
+              variant="body2"
+              sx={{ color: darkTokens.text.secondary }}
+            >
               Your dedicated CSM for assistance
             </Typography>
           </Box>
@@ -252,7 +316,10 @@ export const LicenseNotePaper = () => {
             >
               Support Team
             </Typography>
-            <Typography variant="body2" sx={{ color: darkTokens.text.secondary }}>
+            <Typography
+              variant="body2"
+              sx={{ color: darkTokens.text.secondary }}
+            >
               Technical support and license help
             </Typography>
           </Box>
@@ -270,7 +337,9 @@ export const LicenseNotePaper = () => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-          <WarningIcon sx={{ mr: 1, mt: 0.25, color: darkTokens.status.dangerSoft }} />
+          <WarningIcon
+            sx={{ mr: 1, mt: 0.25, color: darkTokens.status.dangerSoft }}
+          />
           <Box>
             <Typography
               variant="subtitle2"
@@ -292,7 +361,11 @@ export const LicenseNotePaper = () => {
       <Box sx={{ textAlign: "center", pt: 1 }}>
         <Typography
           variant="body2"
-          sx={{ fontStyle: "italic", fontWeight: 500, color: darkTokens.status.successLight }}
+          sx={{
+            fontStyle: "italic",
+            fontWeight: 500,
+            color: darkTokens.status.successLight,
+          }}
         >
           Thank you for your attention and careful review!
         </Typography>

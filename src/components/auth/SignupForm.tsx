@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { Box, TextField, Divider, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Divider, TextField } from "@mui/material";
 import AuthLayout from "./AuthLayout";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { PrimaryButton } from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 import { darkTokens } from "../../ui/theme";
+import api from "../../api";
 
 type SignupFormValues = {
   firstName: string;
@@ -55,11 +55,7 @@ const SignupForm: React.FC = () => {
         CustomerAccountId: "CUST-004",
         ContactId: "CONT-004",
       };
-      const response = await axios.post(
-        "http://localhost:3000/signup",
-        payload
-      );
-      console.log("Signup successful:", response.data);
+      await api.post("/signup", payload);
       navigate("/login");
     } catch (error) {
       console.error("Signup error:", error);

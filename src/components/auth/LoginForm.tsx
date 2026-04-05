@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-// import { useDispatch } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
+  CircularProgress,
+  Divider,
   IconButton,
   InputAdornment,
   TextField,
-  Divider,
-  CircularProgress,
+  Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
@@ -16,8 +17,9 @@ import AuthLayout from "./AuthLayout";
 import { PrimaryButton } from "../../ui/Button";
 import { isMsalConfigured, loginRequest } from "../../auth/msalConfig";
 import { darkTokens } from "../../ui/theme";
-// import { login } from "../../store/authSlice";
-// import { type AppDispatch } from "../../store";
+import { login } from "../../store/authSlice";
+import { type AppDispatch, type RootState } from "../../store";
+
 interface LoginFormValues {
   email: string;
   password: string;
@@ -30,9 +32,13 @@ const LoginForm: React.FC = () => {
 
   const { control, handleSubmit } = useForm<LoginFormValues>();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { instance } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
-  // const dispatch = useDispatch<AppDispatch>();
+  const isMsalAuthenticated = useIsAuthenticated();
+  const isStoreAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  const authError = useSelector((state: RootState) => state.auth.error);
 
   const inputSx = {
     "& .MuiInputLabel-root": { color: darkTokens.text.secondary },
@@ -48,9 +54,8 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
     try {
-      // const result = await dispatch(login(data));
-      // if (login.fulfilled.match(result)) {
-      if (data.email === "admin" && data.password === "admin") {
+      const result = await dispatch(login(data));
+      if (login.fulfilled.match(result)) {
         navigate("/dashboard");
       }
     } catch (error) {
@@ -61,10 +66,10 @@ const LoginForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isMsalAuthenticated || isStoreAuthenticated) {
       navigate("/dashboard");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isMsalAuthenticated, isStoreAuthenticated, navigate]);
 
   const handleSsoLogin = async () => {
     if (!isMsalConfigured) {
@@ -128,6 +133,19 @@ const LoginForm: React.FC = () => {
             />
           )}
         />
+
+        {authError && (
+          <Typography
+            sx={{
+              mt: 1,
+              fontSize: "12px",
+              color: darkTokens.status.dangerSoft,
+            }}
+          >
+            {authError}
+          </Typography>
+        )}
+
         <PrimaryButton fullWidth type="submit" sx={{ mt: 3 }}>
           {loading ? <CircularProgress size={24} color="inherit" /> : "Log In"}
         </PrimaryButton>

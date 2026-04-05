@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-  Stack,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography, Grid, Stack } from "@mui/material";
 import Download from "../../assets/download.svg";
 import AI from "../../assets/ai.svg";
 import Cloud from "../../assets/cloud.svg";
